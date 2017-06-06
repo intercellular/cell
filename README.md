@@ -70,11 +70,11 @@ Here's the generated DOM tree, as viewed in Chrome inspector:
 
 A couple of things to note from the code:
 
-1. There are no framework classes you inherit and extend from.
+1. There are no framework classes to inherit and extend from.
 2. There are no API method calls.
 3. There are no HTML body tags.
 4. All we have is a single JSON-like variable.
-5. The DOM just "self-constructed" without you running any function.
+5. The DOM just builds itself without you running any function.
 
 <br>
 
@@ -201,7 +201,7 @@ So far this is just a static DOM tree. To make it dynamic, you need to write a p
 
 Normally javascript frameworks maintain a separate **centralized data structure and application context ([Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) or some variation)** that synchronizes with and controls HTML elements dynamically.
 
-**Cell takes a decentralized approach.** It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own) therefore can "drive" itself autonomously (Internally called `"Nucleus"`).
+**Cell takes a decentralized approach.** It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own) and can therefore "drive" itself autonomously (Internally called `"Nucleus"`).
 
 <br>
 
