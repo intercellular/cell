@@ -308,11 +308,11 @@ Notice how the `Item` is simply a stateless function. We run a `map` on it with 
 
 <br>
 
-## 4. Extreme Modularity
+## 4. Extreme Modularity with Functional Programming
 
 Normally web app frameworks implement reusable components with **classes**. You need to extend the framework's class and then create components from its instance.
 
-A "component" on Cell is nothing more than a **function**. This is extremely liberating because functions have zero overhead compared to classes.
+A "component" on Cell is nothing more than a **stateless function**. This is extremely liberating because functions have zero overhead compared to classes.
 
 Because of this functional programming approach:
 
