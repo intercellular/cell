@@ -1,9 +1,9 @@
 <img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/cell_logo.png" class="logo">
 
 <div class="header">
-<a href="https://github.com/gliechtenstein/Cell" class="btn btn-primary">Github</a>
+<a href="https://github.com/intercellular/cell" class="btn btn-primary">Github</a>
 <a href="https://play.celljs.org" class="btn btn-secondary">Demo</a>
-<a href="https://gliechtenstein.github.io/celldocs" class="btn btn-secondary">Tutorial</a>
+<a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
 </div>
 
 # Cell
