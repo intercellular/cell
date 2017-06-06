@@ -1,0 +1,18 @@
+{
+  "name": "cell",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cell.js",
+  "scripts": {
+    "test": "mocha --require jsdom-global/register --recursive test"
+  },
+  "author": "",
+  "license": "MIT", 
+  "devDependencies": {
+    "jsdom": "9.12.0",
+    "jsdom-global": "^2.1.1",
+    "json-stable-stringify": "^1.0.1",
+    "mocha": "^3.3.0",
+    "sinon": "^2.2.0"
+  }
+}
