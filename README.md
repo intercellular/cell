@@ -211,6 +211,8 @@ Normally javascript frameworks maintain a separate **centralized data structure 
 
 Instead of having a central master application control the DOM, **Cell directly injects application context into each relevant HTML element so they can run on their own, independent from the outside world.**
 
+Learn more about the underlying architecture [here](./GENESIS.md).
+
 <br>
 
 
