@@ -345,7 +345,13 @@
   var God = {
     detect: function($context){ // takes a context, returns all the objects containing thew '$cell' key
       if($context === undefined) $context = this;
-      return Object.keys($context).filter(function(k){ return $context[k] && Object.prototype.hasOwnProperty.call($context[k], "$cell") }).map(function(k){ return $context[k] })
+      return Object.keys($context).filter(function(k){
+        try {
+          return $context[k] && Object.prototype.hasOwnProperty.call($context[k], "$cell")
+        } catch (e){
+          return false;
+        }
+      }).map(function(k){ return $context[k] })
     },
     create: function($context){
       if($context === undefined) $context = this;
