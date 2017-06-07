@@ -1,4 +1,4 @@
-<img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/cell_logo.png" class="logo">
+<img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo">
 
 <div class="header">
 <a href="https://github.com/intercellular/cell" class="btn btn-primary">Github</a>
