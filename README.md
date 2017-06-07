@@ -14,10 +14,14 @@ A self-constructing web app framework powered by a self-driving DOM.
 
 # Philosophy
 
-Cell has two distinct design goals.
+Cell has one and only one design goal: **Easy**.
 
-1. **Easy:** Easy to learn, easy to use, easy to read and understand, easy to integrate, easy to reuse, and easy to share.
-2. **Simple:** Let complexity emerge from simple decentralized building blocks, instead of building a complex monolithic app.
+1. Easy to learn: There is not even an API to learn or memorize. You just need to remember 3 rules.
+2. Easy to use: All you need to get started is a single HTML file with a single `<script src>` line.
+3. Easy to read: "The 3 rules" of Cell enforce a certain simple structure to your app, making them much more readable. Even non-programmers should be able to grasp what's going on.
+4. Easy to integrate: Cell doesn't force you to switch your entire stack. "Integration" into your existing websites is as simple as copy and pasting a Youtube embed code.
+5. Easy to reuse: Cell is a hyper functional programming framework. You can write everything in stateless functions instead of classes and objects, making it extremely reusable.
+6. Easy to maintain: No complex development workfolw. No NPM, No Webpack, No Babel, just plain vanilla Javascript.
 
 <br>
 
