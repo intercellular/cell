@@ -17,11 +17,11 @@ A self-constructing web app framework powered by a self-driving DOM.
 Cell has one and only one design goal: **Easy**.
 
 1. Easy to learn: There is NO API to learn. You just need to remember 3 rules.
-2. Easy to use: You just need a single HTML file with a single `<script src>` line to get started.
-3. Easy to read: Cell lets you express your app as a piece of JSON-like, human-readable data structure.
+2. Easy to use: You just need a single HTML file with a single `<script src>` line.
+3. Easy to read: Cell lets you write an entire app as a piece of JSON-like, human-readable data structure.
 4. Easy to integrate: Integrating Cell into your existing website is as simple as copy and pasting a Youtube embed code.
 5. Easy to reuse: Everything is powered by stateless functions instead of classes and objects, making it extremely modular.
-6. Easy to maintain: "Development workflow" doesn't exist. No NPM, No Webpack, No Babel, just vanilla Javascript.
+6. Easy to maintain: "Development workflow" doesn't exist. No NPM, No Webpack, No Babel, just vanilla Javascript and 100% based on web standards.
 
 <br>
 
