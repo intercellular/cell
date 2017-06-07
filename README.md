@@ -27,6 +27,10 @@ Cell has one and only one design goal: **Easy**.
 
 # Try Now
 
+Try downloading to your local machine and open it in your browser.
+
+Seriously, there is no additional code or dependency, no environment to set up. What you see is what you get.
+
 ### [Download and Try it!](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/cell_sync.html)
 
 ```html
