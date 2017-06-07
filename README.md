@@ -12,6 +12,15 @@ A self-constructing web app framework powered by a self-driving DOM.
 
 <br>
 
+# Philosophy
+
+Cell has two distinct design goals.
+
+1. **Easy:** Easy to learn, easy to use, easy to read and understand, easy to integrate, easy to reuse, and easy to share.
+2. **Simple:** Let complexity emerge from simple decentralized building blocks, instead of building a complex monolithic app.
+
+<br>
+
 # Try Now
 
 ### [Download and Try it!](https://s3-us-west-2.amazonaws.com/fm.ethan.jason/cell_sync.html)
