@@ -4,15 +4,17 @@
   "description": "",
   "main": "cell.js",
   "scripts": {
+    "uglify": "uglifyjs cell.js --compress --mangle --output cell.min.js",
     "test": "mocha --require jsdom-global/register --recursive test"
   },
   "author": "",
-  "license": "MIT", 
+  "license": "MIT",
   "devDependencies": {
     "jsdom": "9.12.0",
     "jsdom-global": "^2.1.1",
     "json-stable-stringify": "^1.0.1",
     "mocha": "^3.3.0",
-    "sinon": "^2.2.0"
+    "sinon": "^2.2.0",
+    "uglify-js": "^3.0.15"
   }
 }
