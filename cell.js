@@ -154,6 +154,7 @@
     },
     $type: function(model, namespace){
       var meta = {};
+      var $node;
       if(model.$type === "text"){
         if(model.$text && typeof model.$text === "function") model.$text = Phenotype.multiline(model.$text);
         $node = document.createTextNode(model.$text);
@@ -347,11 +348,12 @@
       if($context === undefined) $context = this;
       return Object.keys($context).filter(function(k){
         try {
+          if($context[k] instanceof Element) return false;  // Only look for plain javascript object
           return $context[k] && Object.prototype.hasOwnProperty.call($context[k], "$cell")
-        } catch (e){
-          return false;
-        }
-      }).map(function(k){ return $context[k] })
+        } catch (e){ return false; }
+      }).map(function(k){
+        return $context[k]
+      })
     },
     create: function($context){
       if($context === undefined) $context = this;
