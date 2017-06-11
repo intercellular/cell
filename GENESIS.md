@@ -46,7 +46,7 @@ Nucleus handles the actual cell cycle. Nucleus functions as the interface betwee
 - `tick()` - A polyfill method for `requestAnimationFrame`, which is used throughout the cell cycle. Makes sure all the view updates are carried out in a single animation frame.
 - `set()` - Instead of directly setting attributes on an element, we use the nucleus structure as a pseudo proxy. This function makes sure that all the attributes defined on the genotype object gets monitored for change, so we can trigger `$update()` whenever there's an update
 - `build()` - The root method for building out the nucleus of an element.
-- `bind()` - binds the functions so we can run preprocessing logic after each function is run, as well as trigger `$update()` when there's an update.
+- `bind()` - binds the functions so we can run post-processing logic after each function is run, as well as trigger `$update()` when there's an update.
 - `queue()` - queues up all the attributes that may have been udpated, so we can check later and make an update all at once when the call stack becomes empty.
 
 <br>
