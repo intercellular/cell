@@ -313,7 +313,7 @@ describe("Phenotype", function(){
         compare($node.innerHTML, "Hello")
       })
       describe("$components", function(){
-        it("empty components shouldn't trigger `$components` call", function(){
+        it("empty components should also trigger `$components` call", function(){
           const $parent = document.createElement("div");
           const $node = document.createElement("div")
           $node.Genotype = {}
@@ -329,7 +329,7 @@ describe("Phenotype", function(){
           Phenotype.update($node, "$components", [])
 
           // After
-          compare(spy.Phenotype.$components.callCount, 0) 
+          compare(spy.Phenotype.$components.callCount, 1) 
         })
         it("components with more 0 items should trigger `$components` call", function(){
           const $parent = document.createElement("div");
