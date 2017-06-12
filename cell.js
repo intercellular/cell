@@ -138,7 +138,7 @@
             $node.innerHTML = val;
           }
         } else if(key === "$components"){
-          if(val.length > 0) Phenotype.$components($node, val);
+          Phenotype.$components($node, val);
         }
       } else if(key[0] === "_"){
         // "_" variables don't directly alter the phenotype, so do nothing
@@ -173,6 +173,7 @@
       return $node;
     },
     $components: function($parent, components){
+      if(!components) components = [];
       var $fragment = Phenotype.$type({$type: "fragment"});
       var old = [].map.call($parent.childNodes, function($node){
         return $node.Genotype;
