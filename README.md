@@ -99,7 +99,7 @@ A couple of things to note from the code:
 
 Cell has no API. 100% of your code will be vanilla Javascript, and there is no framework method or class to implement.
 
-To use Cell, you simply define a variable that describes the DOM content and behavior. 
+To use Cell, you simply define a variable that describes the DOM content and behavior.
 
 **When you follow the 3 rules below, Cell turns it into HTML.**
 
@@ -136,7 +136,7 @@ $init			| A function that auto-executes when the element gets created
 $update		| A function that auto-executes when any data stored inside the element changes
 
 
-For example, 
+For example,
 
 ```js
 var el = {
@@ -189,7 +189,7 @@ el = {
 }
 ```
 
-Here we use `_items` to store an array, `_index` to store an integer counter, and `_next` to store a function that will run this element by incrementing `_index` and iterating through `_items`. 
+Here we use `_items` to store an array, `_index` to store an integer counter, and `_next` to store a function that will run this element by incrementing `_index` and iterating through `_items`.
 
 
 <br>
@@ -201,9 +201,9 @@ Here we use `_items` to store an array, `_index` to store an integer counter, an
 
 ## 1. Cell is a Single Function that Creates a DOM Tree.
 
-When Cell loads, it first looks for all Javascript variables that have a `$cell` key. 
+When Cell loads, it first looks for all Javascript variables that have a `$cell` key.
 
-When it finds one, it takes that blueprint object (called a `"Genotype"` in Cell) and creates a DOM tree (`"Phenotype"`) from it. 
+When it finds one, it takes that blueprint object (called a `"Genotype"` in Cell) and creates a DOM tree (`"Phenotype"`) from it.
 
 <br>
 
@@ -214,7 +214,7 @@ When it finds one, it takes that blueprint object (called a `"Genotype"` in Cell
 
 ## 2. Self-driving DOM
 
-So far this is just a static DOM tree. To make it dynamic, you need to write a program that "remote controls" these HTML elements. 
+So far this is just a static DOM tree. To make it dynamic, you need to write a program that "remote controls" these HTML elements.
 
 Normally javascript frameworks maintain a separate **centralized data structure and application context ([Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) or some variation)** that synchronizes with and controls HTML elements dynamically.
 
@@ -310,15 +310,15 @@ var El = {
 We see many repeating `span` lines, so let's extract them out into a function:
 
 ```js
+Coffee = ["Four Barrel", "Philz", "Blue Bottle", "Stumptown", "Counter Culture"]
+Item = function(brand){
+  return { $type: "div", $text: brand, class: "row" }
+}
 var El = {
   $cell: true,
   class: "container",
   $components: Coffee.map(Item)
 }
-Item = function(brand){
-  return { $type: "div", $text: brand, class: "row" }
-}
-Coffee = ["Four Barrel", "Philz", "Blue Bottle", "Stumptown", "Counter Culture"]
 ```
 
 Notice how the `Item` is simply a stateless function. We run a `map` on it with the `Coffee` array and end up with the same structure as before.
@@ -341,7 +341,7 @@ Because of this functional programming approach:
 
 ## 5. Write Future-proof Code
 
-Normally when you use a web app framework, you write code that heavily depends on the framework API. 
+Normally when you use a web app framework, you write code that heavily depends on the framework API.
 
 So if you ever want to use a new framework, you have to rewrite the entire app, taking a huge amount of time to make it do exactly the same thing it used to do.
 
@@ -370,7 +370,7 @@ This means we can apply any 3rd party Javascript or CSS libraries (like **jQuery
 
 ### B. Plug into EXISTING Websites like a widget.
 
-Normally, using a web app framework is an **all or nothing** deal, because the framework takes over your entire frontend. 
+Normally, using a web app framework is an **all or nothing** deal, because the framework takes over your entire frontend.
 
 Cell completely encapsulates your app's logic into discrete HTML elements, so integrating it into an existing web app or website is as simple as **copy and paste**.
 
