@@ -77,15 +77,17 @@
       return res;
     },
     LCS: function(a, b){
-      var m = a.length, n = b.length, C = [], i, j;
+      var m = a.length, n = b.length, C = [], i, j, af = [], bf = [];
+      for (i = 0; i < m; i++) af.push(Gene.freeze(a[i]));
+      for (j = 0; j < n; j++) bf.push(Gene.freeze(b[j]));
       for (i = 0; i <= m; i++) C.push([0]);
       for (j = 0; j < n; j++) C[0].push(0);
       for (i = 0; i < m; i++)
         for (j = 0; j < n; j++)
-          C[i+1][j+1] = Gene.freeze(a[i]) === Gene.freeze(b[j]) ? C[i][j]+1 : Math.max(C[i+1][j], C[i][j+1]);
+          C[i+1][j+1] = af[i] === bf[j] ? C[i][j]+1 : Math.max(C[i+1][j], C[i][j+1]);
       return (function bt(i, j) {
         if (i*j === 0) { return []; }
-        if (Gene.freeze(a[i-1]) === Gene.freeze(b[j-1])) { return bt(i-1, j-1).concat([{item: a[i-1], _old: i-1, _new: j-1}]); }
+        if (af[i-1] === bf[j-1]) { return bt(i-1, j-1).concat([{item: a[i-1], _old: i-1, _new: j-1}]); }
         return (C[i][j-1] > C[i-1][j]) ? bt(i, j-1) : bt(i-1, j);
       }(m, n));
     },
