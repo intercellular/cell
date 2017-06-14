@@ -312,7 +312,7 @@ We see many repeating `span` lines, so let's extract them out into a function:
 ```js
 Coffee = ["Four Barrel", "Philz", "Blue Bottle", "Stumptown", "Counter Culture"]
 Item = function(brand){
-  return { $type: "div", $text: brand, class: "row" }
+  return { $type: "span", $text: brand, class: "row" }
 }
 var El = {
   $cell: true,
