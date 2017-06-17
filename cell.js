@@ -117,7 +117,7 @@
     build: function($node, genotype){
       for(var key in genotype){
         if(genotype[key] !== null && genotype[key] !== undefined){
-          Phenotype.update($node, key, genotype[key]); 
+          Phenotype.update($node, key, genotype[key]);
         }
       }
       Phenotype.$init($node);
