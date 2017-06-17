@@ -6,7 +6,7 @@
   // [Membrane] The Shell
   ////////////////////////////////////////////////////
   var Membrane = {
-    inject: function(gene, namespace) {  // head/body/element with an id => inject instead of appending
+    inject: function(gene, namespace) { // head/body/element with an id => inject instead of appending
       var $node = null;
       if (gene.$type && (gene.$type === 'head' || gene.$type === 'body') && document.getElementsByTagName(gene.$type)) {
         $node = document.getElementsByTagName(gene.$type)[0];
@@ -21,7 +21,7 @@
       if ($node && !$node.Meta) $node.Meta = {};
       return $node;
     },
-    create: function($parent, gene, index, namespace) {  // create and append
+    create: function($parent, gene, index, namespace) { // create and append
       var $node = Phenotype.$type(gene, namespace);
       if (index !== null && index !== undefined && $parent.childNodes && $parent.childNodes[index]) {
         $parent.insertBefore($node, $parent.childNodes[index]);
@@ -174,7 +174,7 @@
       var old = [].map.call($parent.childNodes, function($node) {
         return $node.Genotype;
       }).filter(function(item) {
-        return item;  // only compare with Cells (that have Genotype), not subsidiary elements created by another javascript library
+        return item; // only compare with Cells (that have Genotype), not subsidiary elements created by another javascript library
       });
       if (old.length > 0) {
         var diff = Gene.diff(old, components);
@@ -260,7 +260,7 @@
         set: function(val) {
           // 1. Set genotype by default
           var $current = $node;
-          if (!(key in $node.Genotype) && key[0] === '_') {  // search upward in case a _ variable doesn't exist on current level
+          if (!(key in $node.Genotype) && key[0] === '_') { // search upward in case a _ variable doesn't exist on current level
             while ($current = $current.parentNode) { // eslint-disable-line no-cond-assign
               if ($current && $current.Genotype && (key in $current.Genotype)) {
                 break;
@@ -284,7 +284,7 @@
     build: function($node) {
       ['$type', '$text', '$components'].forEach(function(key) {
         if (!(key in $node.Genotype)) Nucleus.set($node, key);
-      });  // default monitor keywords
+      }); // default monitor keywords
       if ($node.Inheritance) {
         $node.Inheritance.forEach(function(key) {
           Nucleus.set($node, key);
@@ -306,9 +306,9 @@
             Nucleus._queue.forEach(function($node) {
               var needs_update = false;
               for (var key in $node.Dirty) {
-                if (Gene.freeze($node.Genotype[key]) !== $node.Dirty[key]) {   // Update phenotype if the new value is different from old (Dirty)
+                if (Gene.freeze($node.Genotype[key]) !== $node.Dirty[key]) { // Update phenotype if the new value is different from old (Dirty)
                   Phenotype.update($node, key, $node.Genotype[key]);
-                  if (key[0] === '_') { needs_update = true; }   // If any of the _ variables have changed, need to call $update
+                  if (key[0] === '_') { needs_update = true; } // If any of the _ variables have changed, need to call $update
                 }
               }
               if (needs_update && '$update' in $node.Genotype && (typeof $node.Genotype.$update === 'function')) {
@@ -346,7 +346,7 @@
       if ($context === undefined) $context = this;
       return Object.keys($context).filter(function(k) {
         try {
-          if ($context[k] instanceof Element) return false;  // Only look for plain javascript object
+          if ($context[k] instanceof Element) return false; // Only look for plain javascript object
           return $context[k] && Object.prototype.hasOwnProperty.call($context[k], '$cell');
         } catch (e) { return false; }
       }).map(function(k) {
@@ -368,7 +368,7 @@
           for (var i = 0; i < this.length; i++) { callback.call(argument, this[i], i, this); }
         };
       }
-      return God.detect($context).map(function(gene) {  // find all the Cell objects and build
+      return God.detect($context).map(function(gene) { // find all the Cell objects and build
         return $context.document.body.$build(gene, []);
       });
     },
