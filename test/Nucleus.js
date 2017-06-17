@@ -3,15 +3,15 @@ const sinon = require('sinon')
 const stringify = require('json-stable-stringify')
 const {Phenotype, Genotype, Nucleus} = require("../cell")
 const spy = require("./spy.js")
-const compare = function(actual, expected){
+const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
-describe("Nucleus", function(){
+describe("Nucleus", function() {
   require('jsdom-global')()
-  describe("build", function(){
+  describe("build", function() {
     // Builds a proxy
-    describe("initial build", function(){
-      it("creates a nucleus object", function(){
+    describe("initial build", function() {
+      it("creates a nucleus object", function() {
         const $node = document.createElement("div")
         spy.O.defineProperty.reset()
         $node.Meta = {}
@@ -23,7 +23,7 @@ describe("Nucleus", function(){
         Nucleus.build($node)
         compare(spy.O.defineProperty.callCount, 3)
       })
-      it("$text and $components are tracked by default", function(){
+      it("$text and $components are tracked by default", function() {
         const $node = document.createElement("div")
         spy.O.defineProperty.reset()
         $node.Meta = {}
@@ -35,22 +35,22 @@ describe("Nucleus", function(){
         compare(spy.O.defineProperty.callCount, 3)
       })
     })
-    describe("behaviors after the build", function(){
-      describe("get", function(){
+    describe("behaviors after the build", function() {
+      describe("get", function() {
         let $div;
-        beforeEach(function(){
+        beforeEach(function() {
           $div = document.createElement("div")
           $div.Meta = {}
           $div.Genotype = {}
           Nucleus.build($div)
         })
-        describe("$/_ variables", function(){
-          it("properties that were manually assigned", function(){
+        describe("$/_ variables", function() {
+          it("properties that were manually assigned", function() {
             $div.Genotype = {
-              $init: function(){
+              $init: function() {
                 //This function gets run automatically at init!
               },
-              $update: function(){
+              $update: function() {
                 this.$text = (this.done ? "done" : "todo")
               },
               _done: false
@@ -68,8 +68,8 @@ describe("Nucleus", function(){
 
           })
         })
-        describe("DOM attributes", function(){
-          it("properties that were explicitly set by the user", function(){
+        describe("DOM attributes", function() {
+          it("properties that were explicitly set by the user", function() {
             // test 1
             spy.Nucleus.bind.reset();
             spy.Genotype.update.reset();
@@ -92,7 +92,7 @@ describe("Nucleus", function(){
             var d = $div.class;
             compare(getOwnPropertySpy.callCount, 0);
           })
-          it("properties that already exist on the DOM", function(){
+          it("properties that already exist on the DOM", function() {
             // For example, "tagName", "nodeType", etc. already exist on the element natively, and users nomrally don't set these manually. But sometimes we need to access these
             spy.Nucleus.bind.reset();
             var name = $div.tagName;
@@ -101,8 +101,8 @@ describe("Nucleus", function(){
           })
         })
       })
-      describe("set", function(){
-        it("when a nucleus attribute is set, its Genotype.update gets triggered automatically", function(){
+      describe("set", function() {
+        it("when a nucleus attribute is set, its Genotype.update gets triggered automatically", function() {
           let $div = document.createElement("div")
           $div.Meta = {}
           $div.Genotype = {
@@ -114,7 +114,7 @@ describe("Nucleus", function(){
           $div.class = "red";
           compare(spy.Genotype.update.callCount, 1);
         })
-        it("if the attribute is not declared, its Genotype.update DOES NOT get triggered automatically", function(){
+        it("if the attribute is not declared, its Genotype.update DOES NOT get triggered automatically", function() {
           let $div = document.createElement("div")
           $div.Meta = {}
           $div.Genotype = { }
@@ -126,8 +126,8 @@ describe("Nucleus", function(){
         })
       })
     })
-    describe("default tracked attributes", function(){
-      it("tracks $text, $type, $components", function(){
+    describe("default tracked attributes", function() {
+      it("tracks $text, $type, $components", function() {
         // $type, $text, $components get tracked for change by default
         // so that their change auto-triggers $update()
         let $div = document.createElement("div")
@@ -142,9 +142,9 @@ describe("Nucleus", function(){
       })
     })
   })
-  describe("bind", function(){
-    describe("when a non-function is passed", function(){
-      it("returns a non-function", function(){
+  describe("bind", function() {
+    describe("when a non-function is passed", function() {
+      it("returns a non-function", function() {
         let $div = document.createElement("div")
         $div.Meta = {}
         $div.Genotype = {}
@@ -153,67 +153,67 @@ describe("Nucleus", function(){
         compare(typeof ret, "string")
       })
     })
-    describe("when function is passed", function(){
-      it("returns a function", function(){
+    describe("when function is passed", function() {
+      it("returns a function", function() {
         let $div = document.createElement("div")
         $div.Meta = {}
         $div.Genotype = {}
         Nucleus.build($div)
-        var ret = Nucleus.bind($div, function(){ /* something */ })
+        var ret = Nucleus.bind($div, function() { /* something */ })
         compare(typeof ret, "function")
       })
-      describe("post binding behavior", function(){
+      describe("post binding behavior", function() {
         let $div;
         let oldFun;
-        beforeEach(function(){
+        beforeEach(function() {
           $div = document.createElement("div")
           $div.Meta = {}
           $div.Genotype = {
             $type: "div",
             _todo: true,
             _done: true,
-            $update: function(){ }
+            $update: function() { }
           }
-          oldFun = function(name){
+          oldFun = function(name) {
             return "hello, " + name;
           };
-          oldMutationFun = function(name){
+          oldMutationFun = function(name) {
             this._done = false;
             return "hello, " + name;
           };
           Nucleus.build($div)
         })
-        it("executes the original function", function(){
+        it("executes the original function", function() {
           let oldFunSpy = sinon.spy(oldFun, "apply");
           var newFun = Nucleus.bind($div, oldFun);
           newFun("world")
           compare(oldFunSpy.callCount, 1)
         })
-        it("executes the original function and returns the correct value", function(){
+        it("executes the original function and returns the correct value", function() {
           var newFun = Nucleus.bind($div, oldFun);
           compare(newFun("world"), "hello, world")
         })
-        it("empties the queue", function(done){
+        it("empties the queue", function(done) {
           var newFun = Nucleus.bind($div, oldFun);
           Nucleus._queue = [];
           Nucleus._queue.push($div)
           newFun("world")
-          setTimeout(function(){
+          setTimeout(function() {
             compare(Nucleus._queue, [])
             done()
           }, 100)
         })
-        describe("phenotype.update (not to be confused with $update)", function(){
-          it("Nucleus.queue doesn't keep duplicates", function(){
+        describe("phenotype.update (not to be confused with $update)", function() {
+          it("Nucleus.queue doesn't keep duplicates", function() {
             Nucleus._queue = []
-            for(let i = 0; i<10; i++){
+            for(let i = 0; i<10; i++) {
               Nucleus.queue($div)
             }
             compare(Nucleus._queue.length, 1)
           })
-          it("calls Phenotype.update if something has changed (not to be confused with $update)", function(done){
+          it("calls Phenotype.update if something has changed (not to be confused with $update)", function(done) {
             Nucleus._queue = []
-            for(let i = 0; i<10; i++){
+            for(let i = 0; i<10; i++) {
               Nucleus.queue($div)
             }
 
@@ -223,15 +223,15 @@ describe("Nucleus", function(){
             newMutationFun("world")
 
             // 10 tasks * 3 keys
-            setTimeout(function(){
+            setTimeout(function() {
               compare(spy.Phenotype.update.callCount, 1)
               done()
             }, 100)
 
           })
-          it("does not calls Phenotype.update if nothing has changed (not to be confused with $update)", function(done){
+          it("does not calls Phenotype.update if nothing has changed (not to be confused with $update)", function(done) {
             Nucleus._queue = []
-            for(let i = 0; i<10; i++){
+            for(let i = 0; i<10; i++) {
               Nucleus._queue.push($div)
             }
 
@@ -241,18 +241,18 @@ describe("Nucleus", function(){
             newFun("world")
 
             // 10 tasks * 3 keys
-            setTimeout(function(){
+            setTimeout(function() {
               compare(spy.Phenotype.update.callCount, 0)
               done()
             }, 100)
 
           })
         })
-        describe("auto-calling $update", function(){
-          it("doesn't call $update if there's no $update", function(done){
+        describe("auto-calling $update", function() {
+          it("doesn't call $update if there's no $update", function(done) {
             Nucleus._queue = []
             delete $div.Genotype.$update
-            for(let i = 0; i<10; i++){
+            for(let i = 0; i<10; i++) {
               Nucleus.queue($div, "_done")
             }
 
@@ -264,15 +264,15 @@ describe("Nucleus", function(){
             var newFun = Nucleus.bind($div, oldFun);
             newFun("world")
 
-            setTimeout(function(){
+            setTimeout(function() {
               compare(spy.Phenotype.$update.callCount, 0)
               done()
             }, 100)
           })
-          it("calls Phenotype.$update if a '_' variable is in the queue", function(done){
+          it("calls Phenotype.$update if a '_' variable is in the queue", function(done) {
             spy.Gene.freeze.reset()
             Nucleus._queue = []
-            for(let i = 0; i<10; i++){
+            for(let i = 0; i<10; i++) {
               Nucleus.queue($div, "_done")
               Nucleus.queue($div, "_todo")
             }
@@ -289,7 +289,7 @@ describe("Nucleus", function(){
             var newFun = Nucleus.bind($div, oldFun);
             newFun("world")
 
-            setTimeout(function(){
+            setTimeout(function() {
               // 1 task * 2 keys
               compare(spy.Phenotype.update.callCount, 2)
 
@@ -299,8 +299,8 @@ describe("Nucleus", function(){
             }, 100)
 
           })
-          describe("sets the queue correctly if $type, $text, or $components is updated", function(done){
-            it("$type", function(){
+          describe("sets the queue correctly if $type, $text, or $components is updated", function(done) {
+            it("$type", function() {
               var $d = document.createElement("div");
               var $node = $d.$build({
                 $type: "div",
@@ -308,7 +308,7 @@ describe("Nucleus", function(){
               }, [])
 
               $node.$type = "span";
-              setTimeout(function(){
+              setTimeout(function() {
                 compare(spy.Genotype.update.callCount, 1)
                 compare(Nucleus._queue.length, 1)
                 compare(Nucleus._queue[0].Genotype, {$type: "span", $text: "hi"})
@@ -317,7 +317,7 @@ describe("Nucleus", function(){
               }, 100)
               
             })
-            it("$text", function(){
+            it("$text", function() {
               var $d = document.createElement("div");
               var $node = $d.$build({
                 $type: "div",
@@ -325,7 +325,7 @@ describe("Nucleus", function(){
               }, [])
 
               $node.$text = "bye";
-              setTimeout(function(){
+              setTimeout(function() {
                 compare(spy.Genotype.update.callCount, 1)
                 compare(Nucleus._queue.length, 1)
                 compare(Nucleus._queue[0].Genotype, {$type: "div", $text: "bye"})
@@ -334,7 +334,7 @@ describe("Nucleus", function(){
               }, 100)
               
             })
-            it("$components", function(){
+            it("$components", function() {
               var $d = document.createElement("div");
               var $node = $d.$build({
                 $type: "div",
@@ -342,7 +342,7 @@ describe("Nucleus", function(){
               }, [])
 
               $node.$components = [{$type: "div", $text: "child"}]
-              setTimeout(function(){
+              setTimeout(function() {
                 compare(spy.Genotype.update.callCount, 1)
                 compare(Nucleus._queue.length, 1)
                 compare(Nucleus._queue[0].Genotype, {$type: "div", $text: "hi", $components: [{$type: "div", $text: "child"}]})
@@ -352,13 +352,13 @@ describe("Nucleus", function(){
               
             })
           })
-          it("doesn't call Phenotype.$update if a '_' variable is NOT in the queue", function(done){
+          it("doesn't call Phenotype.$update if a '_' variable is NOT in the queue", function(done) {
             Nucleus._queue = []
             $div.Genotype = {
               $type: "div",
               class: 'red'
             }
-            for(let i = 0; i<10; i++){
+            for(let i = 0; i<10; i++) {
               Nucleus.queue($div)
             }
 
@@ -368,7 +368,7 @@ describe("Nucleus", function(){
             var newFun = Nucleus.bind($div, oldFun);
             newFun("world")
 
-            setTimeout(function(){
+            setTimeout(function() {
               // 10 tasks * 2 keys
               compare(spy.Phenotype.update.callCount, 0)
 
@@ -382,8 +382,8 @@ describe("Nucleus", function(){
       })
     })
   })
-  describe("queue", function(){
-    it("basic structure", function(){
+  describe("queue", function() {
+    it("basic structure", function() {
       let $div1 = document.createElement("div")
       $div1.Meta = {}
       $div1.Genotype = {}
@@ -413,9 +413,9 @@ describe("Nucleus", function(){
       assert.equal(Nucleus._queue[1], $div2)
       compare(Nucleus._queue.length, 2)
     })
-    describe("queueing creates Dirty", function(){
+    describe("queueing creates Dirty", function() {
       // All 'Dirty' objects are stringified (frozen) versions of the original
-      it("simple object", function(){
+      it("simple object", function() {
         var $div = document.createElement("div")
         $div.Meta = {}
         $div.Genotype = {
@@ -430,7 +430,7 @@ describe("Nucleus", function(){
         Nucleus.queue($div, "_done")
         compare($div.Dirty, {"_todo": "true", "_done": "true"})
       })
-      it("complex object", function(){
+      it("complex object", function() {
         var $div = document.createElement("div")
         $div.Meta = {}
         $div.Genotype = {

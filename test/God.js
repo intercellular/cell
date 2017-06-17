@@ -3,15 +3,15 @@ const sinon = require('sinon')
 const spy = require("./spy.js")
 const stringify = require('json-stable-stringify')
 const {God} = require("../cell")
-const compare = function(actual, expected){
+const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
 // Everything that interfaces with the outside world
-describe("God", function(){
+describe("God", function() {
   require('jsdom-global')()
-  describe("God.detect(): finding $cell", function(){
-    describe("looks for a variable with the key '$cell'", function(){
-      it("only cells", function(){
+  describe("God.detect(): finding $cell", function() {
+    describe("looks for a variable with the key '$cell'", function() {
+      it("only cells", function() {
         var mock = {
           gene1: {
             $type: "div",
@@ -28,7 +28,7 @@ describe("God", function(){
         compare(genes.length, 2)
         compare(genes, [mock.gene1, mock.gene2]);
       })
-      it("mix of cells and non-cells", function(){
+      it("mix of cells and non-cells", function() {
         var mock = {
           gene: {
             $type: "div",
@@ -47,8 +47,8 @@ describe("God", function(){
       })
     })
   })
-  describe("God.create()", function(){
-    it("inserts into existing body correctly", function(){
+  describe("God.create()", function() {
+    it("inserts into existing body correctly", function() {
       document.body.innerHTML = "";
       window.gene = {
         $type: "body",
@@ -59,10 +59,10 @@ describe("God", function(){
         }]
       };
       var $result = God.create(window);
-      compare($result.map(function($node){ return $node.outerHTML }), [ '<body><div class="container">Hello</div></body>' ]);
+      compare($result.map(function($node) { return $node.outerHTML }), [ '<body><div class="container">Hello</div></body>' ]);
       compare(document.querySelector("html").outerHTML, '<html><head><meta charset=\"utf-8\"></head><body><div class="container">Hello</div></body></html>');
     })
-    it("attaches new node into body", function(){
+    it("attaches new node into body", function() {
       document.body.innerHTML = "";
       window.gene = {
         $cell: true,
@@ -70,11 +70,11 @@ describe("God", function(){
         class: "container"
       };
       var $result = God.create(window);
-      compare($result.map(function($node){ return $node.outerHTML }), [ '<div class="container">Hello</div>' ]);
+      compare($result.map(function($node) { return $node.outerHTML }), [ '<div class="container">Hello</div>' ]);
       compare(document.querySelector("html").outerHTML, '<html><head><meta charset=\"utf-8\"></head><body><div class="container">Hello</div></body></html>');
     })
-    describe("injects node into the id slot", function(){
-      it("single id", function(){
+    describe("injects node into the id slot", function() {
+      it("single id", function() {
         document.body.innerHTML = "<div class='container'><div class='row'>This is a row</div><div class='sidebar' id='widget'></div>";
         window.gene = {
           id: "widget",
@@ -87,7 +87,7 @@ describe("God", function(){
         var $result = God.create(window);
         compare(document.body.innerHTML, "<div class=\"container\"><div class=\"row\">This is a row</div><div class=\"sidebar\" id=\"widget\"><div class=\"ticker\">Hello</div></div></div>");
       })
-      it("multiple ids", function(){
+      it("multiple ids", function() {
         document.body.innerHTML = "<div class='container'><div class='row' id='search'></div><div class='row'>This is a row</div><div class='sidebar' id='widget'></div>";
         window.gene = {
           class: "sidebar",
