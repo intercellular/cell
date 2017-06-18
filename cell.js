@@ -311,10 +311,10 @@
           Nucleus.tick.call(root, function() {
             Nucleus._queue.forEach(function($node) {
               var needs_update = false;
-              for(var key in $node.Dirty) {
-                if (Gene.freeze($node.Genotype[key]) !== $node.Dirty[key]) {   // Update phenotype if the new value is different from old (Dirty)
+              for(var key in $node.Dirty){
+                if(Gene.freeze($node.Genotype[key]) !== $node.Dirty[key]){   // Update phenotype if the new value is different from old (Dirty)
                   Phenotype.update($node, key, $node.Genotype[key]);
-                  if (key[0] == "_") { needs_update = true; }   // If any of the _ variables have changed, need to call $update
+                  if(key[0] === "_"){ needs_update = true; }   // If any of the _ variables have changed, need to call $update
                 }
               }
               if (needs_update && '$update' in $node.Genotype && (typeof $node.Genotype.$update === 'function')) { Phenotype.$update($node) }
