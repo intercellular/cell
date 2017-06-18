@@ -1,12 +1,12 @@
 const assert = require('assert')
 const stringify = require('json-stable-stringify')
 const {Gene} = require("../cell")
-const compare = function(actual, expected){
+const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
-describe("Gene", function(){
-  describe("insertion only", function(){
-    it("prepend", function(){
+describe("Gene", function() {
+  describe("insertion only", function() {
+    it("prepend", function() {
       var _old = ["b", "c", "d", "e"]
       var _new = ["a", "b", "c", "d", "e"]
       var LCS = Gene.LCS(_old, _new)
@@ -19,7 +19,7 @@ describe("Gene", function(){
       ])
       compare(Diff, { '-': [], '+': [ { item: 'a', index: 0 } ] })
     })
-    it("append", function(){
+    it("append", function() {
       var _old = ["b", "c", "d", "e"]
       var _new = ["b", "c", "d", "e", "f"]
       var LCS = Gene.LCS(_old, _new)
@@ -32,7 +32,7 @@ describe("Gene", function(){
       ])
       compare(Diff, { '-': [], '+': [ { item: 'f', index: 4 } ] })
     })
-    it("middle", function(){
+    it("middle", function() {
       var _old = ["a", "b", "d", "e"]
       var _new = ["a", "b", "c", "d", "e"]
       var LCS = Gene.LCS(_old, _new)
@@ -46,8 +46,8 @@ describe("Gene", function(){
       compare(Diff, { '-': [], '+': [ { item: 'c', index: 2 } ] })
     })
   })
-  describe("deletion only", function(){
-    it("from end", function(){
+  describe("deletion only", function() {
+    it("from end", function() {
       var _old = ["a", "b", "d", "e"]
       var _new = ["a", "b", "d"]
       var LCS = Gene.LCS(_old, _new)
@@ -59,7 +59,7 @@ describe("Gene", function(){
       ])
       compare(Diff, { '-': [ {item: 'e', index: 3} ], '+': [] })
     })
-    it("from start", function(){
+    it("from start", function() {
       var _old = ["a", "b", "d", "e"]
       var _new = ["b", "d", "e"]
       var LCS = Gene.LCS(_old, _new)
@@ -71,7 +71,7 @@ describe("Gene", function(){
       ])
       compare(Diff, { '-': [ {item: 'a', index: 0} ], '+': [] })
     })
-    it("from middle", function(){
+    it("from middle", function() {
       var _old = ["a", "b", "d", "e"]
       var _new = ["a", "e"]
       var LCS = Gene.LCS(_old, _new)
@@ -82,7 +82,7 @@ describe("Gene", function(){
       ])
       compare(Diff, { '-': [ {item: 'b', index: 1}, {item: 'd', index: 2} ], '+': [] })
     })
-    it("multiple from middle", function(){
+    it("multiple from middle", function() {
       var _old = ["a", "b", "c", "d", "e", "f"]
       var _new = ["a", "c", "d", "f"]
       var LCS = Gene.LCS(_old, _new)
@@ -96,8 +96,8 @@ describe("Gene", function(){
       compare(Diff, { '-': [ {item: 'b', index: 1}, {item: 'e', index: 4} ], '+': [] })
     })
   })
-  describe("insertion and deletion", function(){
-    it("from middle", function(){
+  describe("insertion and deletion", function() {
+    it("from middle", function() {
       var _old = ["a", "b", "d", "e"]
       var _new = ["a", "c", "e"]
       var LCS = Gene.LCS(_old, _new)
@@ -108,7 +108,7 @@ describe("Gene", function(){
       ])
       compare(Diff, { '-': [ {item: 'b', index: 1}, {item: 'd', index: 2} ], '+': [ {item: 'c', index: 1} ] })
     })
-    it("multiple from middle", function(){
+    it("multiple from middle", function() {
       var _old = ["a", "b", "c", "d", "e", "f", "g"]
       var _new = ["a", "c", "d", "h", "g"]
       var LCS = Gene.LCS(_old, _new)
@@ -122,8 +122,8 @@ describe("Gene", function(){
       compare(Diff, { '-': [ {item: 'b', index: 1}, {item: 'e', index: 4}, {item: 'f', index: 5} ], '+': [ {item: 'h', index: 3} ] })
     })
   })
-  describe("complex", function(){
-    it("array", function(){
+  describe("complex", function() {
+    it("array", function() {
       var _old = [
         {
           "$type":"li","class":"","_model":{"todo":"a","completed":false},
@@ -177,7 +177,7 @@ describe("Gene", function(){
       compare(LCS, [ { item: _old[0], _old: 0, _new: 0 } ])
       compare(Diff, { '-': [ ], "+": [ {item: _new[1], index: 1} ] });
     })
-    it("json", function(){
+    it("json", function() {
       var _old = [
         {
           "$type": "li",
