@@ -3,14 +3,14 @@ const sinon = require('sinon')
 const spy = require("./spy.js")
 const stringify = require('json-stable-stringify')
 const {Membrane} = require("../cell")
-const compare = function(actual, expected){
+const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
-describe("Membrane", function(){
+describe("Membrane", function() {
   require('jsdom-global')()
-  describe("build", function(){
-    describe("Membrane.inject", function(){
-      it("get existing head", function(){
+  describe("build", function() {
+    describe("Membrane.inject", function() {
+      it("get existing head", function() {
         spy.Membrane.inject.reset();
         spy.Membrane.create.reset();
         var gene = {
@@ -27,7 +27,7 @@ describe("Membrane", function(){
         compare(spy.Membrane.inject.callCount, 1)
         compare(spy.Membrane.create.callCount, 0)
       })
-      it("get existing body", function(){
+      it("get existing body", function() {
         spy.Membrane.inject.reset();
         spy.Membrane.create.reset();
         var gene = {
@@ -42,7 +42,7 @@ describe("Membrane", function(){
         compare(spy.Membrane.inject.callCount, 1)
         compare(spy.Membrane.create.callCount, 0)
       })
-      it("get existing id", function(){
+      it("get existing id", function() {
         spy.Membrane.inject.reset();
         spy.Membrane.create.reset();
         document.body.innerHTML = "";
@@ -63,8 +63,8 @@ describe("Membrane", function(){
         compare(spy.Membrane.create.callCount, 0)
       })
     })
-    describe("Membrane.create", function(){
-      it("returns a newly created node", function(){
+    describe("Membrane.create", function() {
+      it("returns a newly created node", function() {
         spy.Membrane.inject.reset();
         spy.Membrane.create.reset();
         const $parent = document.createElement("div");
@@ -73,12 +73,12 @@ describe("Membrane", function(){
         compare(spy.Membrane.inject.callCount, 1)
         compare(spy.Membrane.create.callCount, 1)
       })
-      it("the passed in node should be the parent of the returned node", function(){
+      it("the passed in node should be the parent of the returned node", function() {
         const $parent = document.createElement("div");
         const $child = Membrane.build($parent, {})
         assert.equal($child.parentNode, $parent)
       })
-      it("appends child", function(){
+      it("appends child", function() {
         spy.Phenotype.$type.reset();
         const $node = document.createElement("div")
         Membrane.build($node, {$type: "span"})

@@ -46,9 +46,9 @@ var el = {
       type: "text",
       placeholder: "Type something and press enter",
       style: "width: 100%; outline:none; padding: 5px;",
-      $init: function(e){ this.focus() },
-      onkeyup: function(e){
-        if(e.keyCode === 13){
+      $init: function(e) { this.focus() },
+      onkeyup: function(e) {
+        if (e.keyCode === 13) {
           document.querySelector("#list")._add(this.value);
           this.value = "";
         }
@@ -59,9 +59,9 @@ var el = {
       id: "list",
       _items: [],
       $components: [],
-      _add: function(val){ this._items.push(val) },
-      $update: function(){
-        this.$components = this._items.map(function(item){
+      _add: function(val) { this._items.push(val) },
+      $update: function() {
+        this.$components = this._items.map(function(item) {
           return { $type: "li", $text: item }
         })
       }
@@ -179,8 +179,8 @@ el = {
   $type: "a",
   href: "#",
   $text: "Click Me",
-  onclick: function(e){ this._next() },
-  _next: function(){
+  onclick: function(e) { this._next() },
+  _next: function() {
     this._index++;
     this.$text = this._items[this._index];
   },
@@ -311,7 +311,7 @@ We see many repeating `span` lines, so let's extract them out into a function:
 
 ```js
 Coffee = ["Four Barrel", "Philz", "Blue Bottle", "Stumptown", "Counter Culture"]
-Item = function(brand){
+Item = function(brand) {
   return { $type: "span", $text: brand, class: "row" }
 }
 var El = {
