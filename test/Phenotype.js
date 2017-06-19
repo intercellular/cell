@@ -193,7 +193,7 @@ describe("Phenotype", function() {
 
           compare($node._counter, 0)
 
-          const NodeUpdateSpy = sinon.spy($node.$update, "call")
+          const NodeUpdateSpy = sinon.spy($node.Genotype, "$update")
           NodeUpdateSpy.reset()
 
           Phenotype.$update($node)

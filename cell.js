@@ -170,7 +170,6 @@
     },
     $components: function($parent, components) {
       if (!components) components = [];
-      var $fragment = Phenotype.$type({ $type: 'fragment' });
       var old = [].map.call($parent.childNodes, function($node) {
         return $node.Genotype;
       }).filter(function(item) {
@@ -194,7 +193,7 @@
         });
       } else {
         // first time construction => build a fragment and insert at once
-        $fragment = Phenotype.$type({ $type: 'fragment' });
+        var $fragment = Phenotype.$type({ $type: 'fragment' });
         var inheritance = $parent.Inheritance;
         for (var key in $parent.Genotype) {
           if (key[0] === '_') inheritance = inheritance.concat([key]);
