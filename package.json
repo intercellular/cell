@@ -4,6 +4,7 @@
   "description": "",
   "main": "cell.js",
   "scripts": {
+    "lint": "eslint cell.js",
     "uglify": "uglifyjs cell.js --compress --mangle --output cell.min.js",
     "test": "mocha --require jsdom-global/register --recursive test"
   },
