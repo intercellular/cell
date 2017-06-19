@@ -132,9 +132,7 @@
           }
         } else if (key === '$text') {
           if (typeof val === 'function') val = Phenotype.multiline(val);
-          if (val.toString().length > 0) {
-            $node.innerHTML = val;
-          }
+          $node.innerHTML = val;
         } else if (key === '$components') {
           Phenotype.$components($node, val);
         }
@@ -198,6 +196,7 @@
         for (var key in $parent.Genotype) {
           if (key[0] === '_') inheritance = inheritance.concat([key]);
         }
+        while ($parent.firstChild) { $parent.removeChild($parent.firstChild); } // remove empty text nodes
         components.forEach(function(component, index) {
           $fragment.$build(component, inheritance, index, $parent.Meta.namespace);
         });

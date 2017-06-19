@@ -145,6 +145,36 @@ describe("Phenotype", function() {
         compare($parent.childNodes[1].Inheritance, ["_index"])
         compare($parent.childNodes[2].Inheritance, ["_index"])
       })
+      describe("injecting into existing nodes should remove all childNodes first", function(){
+        it("injecting into body", function(){
+          document.body.innerHTML = "   ";
+          compare(document.body.childNodes.length, 1);
+          var gene = {
+            $type: "body",
+            $cell: true,
+            $components: [{ class: "container" }]
+          }
+          var $node = root.document.body.$build(gene, []);
+          // building should end up with 1 node (not 2) because the empty text node has been deleted
+          compare($node.childNodes.length, 1);
+        })
+        it("injecting into element with id", function(){
+          document.body.innerHTML = "<div id='widget'>Old</div>";
+          compare(document.body.childNodes.length, 1);
+          var gene = {
+            $cell: true, $type: "div", id: "widget",
+            $components:[{
+              $type: "span",
+              $text: "New"
+            }]
+          };
+          var $node = root.document.body.$build(gene, []);
+          // should replace the old content
+          compare($node.innerHTML, "<span>New</span>");
+          // building should end up with 1 node (not 2) because the contents are removed before cell is injected
+          compare($node.childNodes.length, 1);
+        })
+      })
     })
     describe("$init", function() {
       beforeEach(function() {
