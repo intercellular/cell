@@ -4,9 +4,10 @@
   "description": "",
   "main": "cell.js",
   "scripts": {
-    "lint": "eslint cell.js",
     "uglify": "uglifyjs cell.js --compress --mangle --output cell.min.js",
-    "test": "mocha --require jsdom-global/register --recursive test"
+    "test:lint": "eslint cell.js",
+    "test:mocha": "mocha --require jsdom-global/register --recursive test",
+    "test": "npm run test:lint && npm run test:mocha"
   },
   "author": "",
   "license": "MIT",
