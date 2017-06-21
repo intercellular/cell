@@ -6,9 +6,19 @@
 <a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
 </div>
 
+
 # Cell
 
 A self-constructing web app framework powered by a self-driving DOM.
+
+
+1. [Philosophy](#philosophy)
+2. [Try Now](#try-now)
+3. [How is it different?](#there-is-no-framework-)
+4. [Rules](#there-are-only-3-rules)
+5. [How does it work?](#so-how-does-it-work-exactly-)
+6. [What problem does it solve?](#how-does-this-make-a-difference-)
+
 
 <br>
 
