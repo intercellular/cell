@@ -16,8 +16,8 @@ A self-constructing web app framework powered by a self-driving DOM.
 2. [Try Now](#try-now)
 3. [How is it different?](#there-is-no-framework)
 4. [Rules](#there-are-only-3-rules)
-5. [How does it work?](#so-how-does-it-work-exactly)
-6. [What problem does it solve?](#how-does-this-make-a-difference)
+5. [How does it work?](#how-it-works)
+6. [What problems does it solve?](#what-problems-this-solves)
 
 
 <br>
@@ -93,7 +93,7 @@ Here's the generated DOM tree, as viewed in Chrome inspector:
 <br>
 
 
-# There Is No "Framework"
+# There Is No Framework
 
 A couple of things to note from the code:
 
@@ -207,7 +207,7 @@ Here we use `_items` to store an array, `_index` to store an integer counter, an
 
 
 
-# So how does it work, exactly?
+# How it works
 
 ## 1. Cell is a Single Function that Creates a DOM Tree.
 
@@ -245,7 +245,7 @@ Learn more about the underlying architecture [here](./GENESIS.md).
 
 
 
-# How does this make a difference?
+# What problems this solves
 
 
 ## 1. There is No God (There is No Framework)
