@@ -1,17 +1,16 @@
 ////////////////////////////////////////////////////////
 // Read GENESIS.md for an overview of this source code
-(function() {
-  var root = this;
+(function($root) {
   ////////////////////////////////////////////////////
   // [Membrane] The Shell
   ////////////////////////////////////////////////////
   var Membrane = {
     inject: function(gene, namespace) { // head/body/element with an id => inject instead of appending
       var $node = null;
-      if (gene.$type && (gene.$type === 'head' || gene.$type === 'body') && document.getElementsByTagName(gene.$type)) {
-        $node = document.getElementsByTagName(gene.$type)[0];
-      } else if (gene.id && document.getElementById(gene.id)) {
-        $node = document.getElementById(gene.id);
+      if (gene.$type && (gene.$type === 'head' || gene.$type === 'body') && $root.document.getElementsByTagName(gene.$type)) {
+        $node = $root.document.getElementsByTagName(gene.$type)[0];
+      } else if (gene.id && $root.document.getElementById(gene.id)) {
+        $node = $root.document.getElementById(gene.id);
         if ($node.nodeName.toLowerCase() !== (gene.$type || 'div')) {
           var $replacement = Phenotype.$type(gene, namespace);
           $node.parentNode.replaceChild($replacement, $node);
@@ -151,17 +150,17 @@
       var $node;
       if (model.$type === 'text') {
         if (model.$text && typeof model.$text === 'function') model.$text = Phenotype.multiline(model.$text);
-        $node = document.createTextNode(model.$text);
+        $node = $root.document.createTextNode(model.$text);
       } else if (model.$type === 'svg') {
-        $node = document.createElementNS('http://www.w3.org/2000/svg', model.$type);
+        $node = $root.document.createElementNS('http://www.w3.org/2000/svg', model.$type);
         meta.namespace = $node.namespaceURI;
       } else if (namespace) {
-        $node = document.createElementNS(namespace, model.$type);
+        $node = $root.document.createElementNS(namespace, model.$type);
         meta.namespace = $node.namespaceURI;
       } else if (model.$type === 'fragment') {
-        $node = document.createDocumentFragment();
+        $node = $root.document.createDocumentFragment();
       } else {
-        $node = document.createElement(model.$type || 'div');
+        $node = $root.document.createElement(model.$type || 'div');
       }
       $node.Meta = meta;
       return $node;
@@ -205,7 +204,7 @@
       }
     },
     $init: function($node) {
-      Nucleus.tick.call(root, function() {
+      Nucleus.tick.call($root, function() {
         if ($node.Genotype.$init) Nucleus.bind($node, $node.Genotype.$init)();
       });
     },
@@ -223,7 +222,7 @@
   // [Nucleus] Controller
   ////////////////////////////////////////////////////
   var Nucleus = {
-    tick: (function() { return root.requestAnimationFrame || root.webkitRequestAnimationFrame || root.mozRequestAnimationFrame || root.msRequestAnimationFrame || function(cb) { return root.setTimeout(cb, 1000/60); }; }()),
+    tick: $root.requestAnimationFrame || $root.webkitRequestAnimationFrame || $root.mozRequestAnimationFrame || $root.msRequestAnimationFrame || function(cb) { return $root.setTimeout(cb, 1000/60); },
     set: function($node, key) {
       Object.defineProperty($node, key, {
         configurable: true,
@@ -300,7 +299,7 @@
           // [1] Schedule phenotype update by wrapping them in a single tick (requestAnimationFrame)
           // When there's a function call stack (fnA -> fnB -> fnC), the queue will be processed from the first function (fnA) only,
           // after which it will be drained, preventing from further phenotype updates in subsequent ticks
-          Nucleus.tick.call(root, function() {
+          Nucleus.tick.call($root, function() {
             Nucleus._queue.forEach(function($node) {
               var needs_update = false;
               for (var key in $node.Dirty) {
@@ -335,7 +334,6 @@
       }
     },
   };
-
   //////////////////////////////////////////////////////////////////
   // [God] God's only purpose is to create cells and get out of the way
   //////////////////////////////////////////////////////////////////
@@ -344,7 +342,7 @@
       if ($context === undefined) $context = this;
       return Object.keys($context).filter(function(k) {
         try {
-          if ($context[k] instanceof Element) return false; // Only look for plain javascript object
+          if ($context[k] instanceof $root.Element) return false; // Only look for plain javascript object
           return $context[k] && Object.prototype.hasOwnProperty.call($context[k], '$cell');
         } catch (e) { return false; }
       }).map(function(k) {
@@ -352,7 +350,8 @@
       });
     },
     create: function($context) {
-      if ($context === undefined) $context = this;
+      if ($context === undefined) $context = $root;
+      else $root = $context;
       $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(gene, inheritance, index, namespace) {
         var $node = Membrane.build(this, gene, index, namespace);
         Genotype.build($node, gene, inheritance || [], index);
@@ -360,9 +359,9 @@
         Phenotype.build($node, $node.Genotype);
         return $node;
       };
-      if (window.NodeList && !NodeList.prototype.forEach) { // NodeList.forEach override polyfill
-        NodeList.prototype.forEach = function(callback, argument) {
-          argument = argument || window;
+      if ($root.NodeList && !$root.NodeList.prototype.forEach) { // NodeList.forEach override polyfill
+        $root.NodeList.prototype.forEach = function(callback, argument) {
+          argument = argument || $root;
           for (var i = 0; i < this.length; i++) { callback.call(argument, this[i], i, this); }
         };
       }
@@ -374,13 +373,23 @@
 
   // For testing
   if (typeof exports !== 'undefined') {
-    var x = { Phenotype: Phenotype, Genotype: Genotype, Nucleus: Nucleus, Gene: Gene, Membrane: Membrane, God: God };
+    var x = {
+      Phenotype: Phenotype,
+      Genotype: Genotype,
+      Nucleus: Nucleus,
+      Gene: Gene,
+      Membrane: Membrane,
+      God: God,
+      create: God.create.bind(God),
+    };
     if (typeof module !== 'undefined' && module.exports) { exports = module.exports = x; }
     exports = x;
   }
 
-  // Let there be Cell
-  root.addEventListener('load', function() {
-    God.create(root);
-  });
-}());
+  if (this.addEventListener) {
+    // Let there be Cell
+    this.addEventListener('load', function() {
+      God.create(this);
+    });
+  }
+}(this));

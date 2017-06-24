@@ -12,11 +12,11 @@ describe("Phenotype", function() {
     describe("$type", function() {
       describe("text", function() {
         it("empty text node", function() {
-          const node = Phenotype.$type({$type: "text"}) 
+          const node = Phenotype.$type({$type: "text"})
           compare(node.nodeType, 3) // Node.TEXT_NODE 3
         })
         it("text node with content", function() {
-          const node = Phenotype.$type({$type: "text", $text: "Hello World"}) 
+          const node = Phenotype.$type({$type: "text", $text: "Hello World"})
           compare(node.nodeType, 3)
           compare(node.textContent, "Hello World")
           compare(typeof node.innerHTML, "undefined")
@@ -24,38 +24,38 @@ describe("Phenotype", function() {
       })
       describe("svg", function() {
         it("svg", function() {
-          const node = Phenotype.$type({$type: "svg"}) 
+          const node = Phenotype.$type({$type: "svg"})
           compare(node.tagName.toLowerCase(), "svg")
           compare(node.namespaceURI, "http://www.w3.org/2000/svg")
           compare(node.Meta, {namespace: "http://www.w3.org/2000/svg"})
         })
         it("svg children", function() {
-          const node = Phenotype.$type({$type: "p"}, "dummy namespace") 
+          const node = Phenotype.$type({$type: "p"}, "dummy namespace")
           compare(node.namespaceURI, "dummy namespace")
           compare(node.Meta, {namespace: "dummy namespace"})
         })
       })
       it("fragment", function() {
-        const node = Phenotype.$type({$type: "fragment"}) 
+        const node = Phenotype.$type({$type: "fragment"})
         compare(node.nodeType, 11)  // Node.DOCUMENT_FRAGMENT_NODE  11
         compare(node.Meta, {})
       })
       it("without type => default div", function() {
         const node = Phenotype.$type({})
-        compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1 
+        compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1
         compare(node.tagName.toLowerCase(), "div")
         compare(node.Meta, {})
       })
       describe("with type", function() {
         it("basic", function() {
           const node = Phenotype.$type({$type: "p"})
-          compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1 
+          compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1
           compare(node.tagName.toLowerCase(), "p")
           compare(node.Meta, {})
         })
         it("doesn't fill in the text yet", function() {
           const node = Phenotype.$type({$type: "p", $text: "hi"})
-          compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1 
+          compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1
           compare(node.tagName.toLowerCase(), "p")
           compare(node.Meta, {})
           compare(node.innerHTML, "");
@@ -63,7 +63,7 @@ describe("Phenotype", function() {
         })
         it("doesn't set the attribute yet", function() {
           const node = Phenotype.$type({$type: "p", class: "red"})
-          compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1 
+          compare(node.nodeType, 1)  // Node.ELEMENT_NODE  1
           compare(node.tagName.toLowerCase(), "p")
           compare(node.Meta, {})
           compare(node.getAttribute('class'), null)
@@ -77,13 +77,13 @@ describe("Phenotype", function() {
         spy.Phenotype.$init.reset();
         Phenotype.$components($node, [{
           $type: "li",
-          class: "red" 
+          class: "red"
         }, {
           $type: "li",
-          class: "green" 
+          class: "green"
         }, {
           $type: "li",
-          class: "blue" 
+          class: "blue"
         }])
         compare($node.outerHTML, "<ul><li class=\"red\"></li><li class=\"green\"></li><li class=\"blue\"></li></ul>")
         compare(spy.Phenotype.$init.callCount, 3)
@@ -92,13 +92,13 @@ describe("Phenotype", function() {
         var $parent = root.document.body.$build({$type: "ul"}, [])
         const components = [{
           $type: "li",
-          class: "red" 
+          class: "red"
         }, {
           $type: "li",
-          class: "green" 
+          class: "green"
         }, {
           $type: "li",
-          class: "blue" 
+          class: "blue"
         }]
 
         // spy
@@ -117,11 +117,11 @@ describe("Phenotype", function() {
       it("ties each child component's Genotypes onto the current element's $components array", function() {
         var $parent = root.document.body.$build({$type: "ul"}, [])
         const components = [{
-          $type: "li", class: "red" 
+          $type: "li", class: "red"
         }, {
-          $type: "li", class: "green" 
+          $type: "li", class: "green"
         }, {
-          $type: "li", class: "blue" 
+          $type: "li", class: "blue"
         }]
         Phenotype.$components($parent, components)
         compare($parent.$components, components)
@@ -133,11 +133,11 @@ describe("Phenotype", function() {
           $type: "ul",
           _index: 1,
           $components: [{
-            $type: "li", class: "red" 
+            $type: "li", class: "red"
           }, {
-            $type: "li", class: "green" 
+            $type: "li", class: "green"
           }, {
-            $type: "li", class: "blue" 
+            $type: "li", class: "blue"
           }]
         }, [])
         compare($parent.Inheritance, [])
@@ -359,7 +359,7 @@ describe("Phenotype", function() {
           Phenotype.update($node, "$components", [])
 
           // After
-          compare(spy.Phenotype.$components.callCount, 1) 
+          compare(spy.Phenotype.$components.callCount, 1)
         })
         it("components with more 0 items should trigger `$components` call", function() {
           const $parent = document.createElement("div");
@@ -377,7 +377,7 @@ describe("Phenotype", function() {
           Phenotype.update($node, "$components", [{$type: "div"}])
 
           // After
-          compare(spy.Phenotype.$components.callCount, 1) 
+          compare(spy.Phenotype.$components.callCount, 1)
         })
       })
     })
@@ -413,7 +413,7 @@ describe("Phenotype", function() {
           // normally it's set directly on the DOM as an attribute
           compare($node.value, "preset")
 
-          Phenotype.update($node, "value", "reset") 
+          Phenotype.update($node, "value", "reset")
 
           compare($node.value, "reset")
 
@@ -430,7 +430,7 @@ describe("Phenotype", function() {
           compare($node.getAttribute("value"), null)
           compare($node.value, "")
 
-          Phenotype.update($node, "value", "newval") 
+          Phenotype.update($node, "value", "newval")
 
           compare($node.value, "newval")
         })
@@ -446,7 +446,7 @@ describe("Phenotype", function() {
         compare($node.getAttribute("data-id"), null)
         compare($node["data-id"], undefined)
 
-        Phenotype.update($node, "data-id", 1) 
+        Phenotype.update($node, "data-id", 1)
 
         // After
         compare($node.getAttribute("data-id"), "1") // only set to the DOM attribute (as string)
@@ -463,7 +463,7 @@ describe("Phenotype", function() {
         compare($node.getAttribute("data-done"), null)
         compare($node["data-done"], undefined)
 
-        Phenotype.update($node, "data-done", true) 
+        Phenotype.update($node, "data-done", true)
 
         // After
         compare($node.getAttribute("data-done"), "true") // only set to the DOM attribute (as string)

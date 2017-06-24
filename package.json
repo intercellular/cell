@@ -13,8 +13,8 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^4.0.0",
-    "jsdom": "9.12.0",
-    "jsdom-global": "^2.1.1",
+    "jsdom": "^11.0.0",
+    "jsdom-global": "^3.0.2",
     "json-stable-stringify": "^1.0.1",
     "mocha": "^3.3.0",
     "sinon": "^2.2.0",

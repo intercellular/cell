@@ -36,7 +36,7 @@ describe("Membrane", function() {
           $components: [{ class: "container" }]
         }
         var $node = Membrane.build(window, gene, null, null)
-        compare(Object.getPrototypeOf($node).toString(), "[object HTMLBodyElementPrototype]")
+        compare(Object.getPrototypeOf($node).toString(), "[object HTMLBodyElement]")
         compare($node.Meta, {})
         compare($node, document.body);
         compare(spy.Membrane.inject.callCount, 1)
@@ -83,8 +83,8 @@ describe("Membrane", function() {
         const $node = document.createElement("div")
         Membrane.build($node, {$type: "span"})
         compare(spy.Phenotype.$type.callCount, 1)
-        compare($node.innerHTML, "<span></span>") 
-        compare($node.outerHTML, "<div><span></span></div>") 
+        compare($node.innerHTML, "<span></span>")
+        compare($node.outerHTML, "<div><span></span></div>")
       })
     })
   })
