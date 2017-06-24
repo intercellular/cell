@@ -250,7 +250,7 @@
             } else if (key in $node.Genotype) {
               return $node.Genotype[key];
             } else {
-              return Object.getOwnPropertyDescriptor(window.HTMLElement.prototype, key).get.call($node);
+              return Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).get.call($node);
             }
           }
         },
@@ -272,7 +272,7 @@
             } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
               $node.setAttribute(key, val);
             } else if (typeof val === 'function') {
-              Object.getOwnPropertyDescriptor(window.HTMLElement.prototype, key).set.call($node, val);
+              Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).set.call($node, val);
             }
           }
         },
