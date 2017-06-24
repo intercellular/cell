@@ -205,7 +205,7 @@
     },
     $init: function($node) {
       Nucleus.tick.call($root, function() {
-        if ($node.Genotype.$init) Nucleus.bind($node, $node.Genotype.$init)();
+        if ($node.Genotype && $node.Genotype.$init) Nucleus.bind($node, $node.Genotype.$init)();
       });
     },
     $update: function($node) {
