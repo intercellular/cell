@@ -71,6 +71,12 @@ describe("Phenotype", function() {
         })
       })
     })
+    describe("html", function() {
+      it("html node with content", function() {
+        const node = Phenotype.$type({ $html: '<p></p>' })
+        compare(node.nodeType, 1);
+      })
+    })
     describe("$components", function() {
       it("basic", function() {
         var $node = root.document.body.$build({$type: "ul"}, [])
@@ -396,7 +402,7 @@ describe("Phenotype", function() {
           compare($node.getAttribute("class"), null)
           compare($node.class, undefined)
 
-          Phenotype.update($node, "class", "red") 
+          Phenotype.update($node, "class", "red")
 
           compare($node.getAttribute("class"), "red")
           compare($node.class, undefined)

@@ -134,7 +134,7 @@ maps to:
 
 <br>
 
-## Rule #2. Use 6 special keywords to declare the cell structrure
+## Rule #2. Use 7 special keywords to declare the cell structrure
 
 Key				| Description
 -------------|---------------------------------
@@ -142,6 +142,7 @@ $cell			| Required. Tells Cell to create a cell element using this object as a r
 $type			| The type of element to create. (`div`, `form`, `textarea`, etc.)
 $components	| Array of nested child nodes
 $text			| Text content inside the element (for simple nodes with no $components)
+$html			| Unescaped html content inside the element
 $init			| A function that auto-executes when the element gets created
 $update		| A function that auto-executes when any data stored inside the element changes
 

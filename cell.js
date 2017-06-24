@@ -131,6 +131,9 @@
           }
         } else if (key === '$text') {
           if (typeof val === 'function') val = Phenotype.multiline(val);
+          $node.textContent = val;
+        } else if (key === '$html') {
+          if (typeof val === 'function') val = Phenotype.multiline(val);
           $node.innerHTML = val;
         } else if (key === '$components') {
           Phenotype.$components($node, val);
