@@ -21,7 +21,7 @@ describe("Nucleus", function() {
           $components: []
         }
         Nucleus.build($node)
-        compare(spy.O.defineProperty.callCount, 3)
+        compare(spy.O.defineProperty.callCount, 4)
       })
       it("$text and $components are tracked by default", function() {
         const $node = document.createElement("div")
@@ -32,7 +32,7 @@ describe("Nucleus", function() {
         }
         Nucleus.build($node)
         // $text and $components are tracked by default
-        compare(spy.O.defineProperty.callCount, 3)
+        compare(spy.O.defineProperty.callCount, 4)
       })
     })
     describe("behaviors after the build", function() {
@@ -127,7 +127,7 @@ describe("Nucleus", function() {
       })
     })
     describe("default tracked attributes", function() {
-      it("tracks $text, $type, $components", function() {
+      it("tracks $text, $html, $type, $components", function() {
         // $type, $text, $components get tracked for change by default
         // so that their change auto-triggers $update()
         let $div = document.createElement("div")
@@ -138,6 +138,7 @@ describe("Nucleus", function() {
         Nucleus.build($div);
         compare($div.hasOwnProperty("$type"), true)
         compare($div.hasOwnProperty("$text"), true)
+        compare($div.hasOwnProperty("$html"), true)
         compare($div.hasOwnProperty("$components"), true)
       })
     })
@@ -299,7 +300,7 @@ describe("Nucleus", function() {
             }, 100)
 
           })
-          describe("sets the queue correctly if $type, $text, or $components is updated", function(done) {
+          describe("sets the queue correctly if $type, $text, $html, or $components is updated", function(done) {
             it("$type", function() {
               var $d = document.createElement("div");
               var $node = $d.$build({
@@ -330,6 +331,23 @@ describe("Nucleus", function() {
                 compare(Nucleus._queue.length, 1)
                 compare(Nucleus._queue[0].Genotype, {$type: "div", $text: "bye"})
                 compare(Nucleus._queue[0].Dirty, {$text: "hi"})
+                done()
+              }, 100)
+              
+            })
+            it("$html", function() {
+              var $d = document.createElement("div");
+              var $node = $d.$build({
+                $type: "div",
+                $html: "<p>Hello</p>"
+              }, [])
+
+              $node.$html = "<p><span>Hello</span> world</p>";
+              setTimeout(function() {
+                compare(spy.Genotype.update.callCount, 1)
+                compare(Nucleus._queue.length, 1)
+                compare(Nucleus._queue[0].Genotype, {$type: "div", $html: "<p>Hello</p>"})
+                compare(Nucleus._queue[0].Dirty, {$html: "<p><span>Hello</span> world</p>"})
                 done()
               }, 100)
               

@@ -282,7 +282,7 @@
       });
     },
     build: function($node) {
-      ['$type', '$text', '$components'].forEach(function(key) {
+      ['$type', '$text', '$html', '$components'].forEach(function(key) {
         if (!(key in $node.Genotype)) Nucleus.set($node, key);
       }); // default monitor keywords
       if ($node.Inheritance) {
