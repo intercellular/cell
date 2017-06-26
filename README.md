@@ -4,6 +4,7 @@
 <a href="https://github.com/intercellular/cell" class="btn btn-primary">Github</a>
 <a href="https://play.celljs.org" class="btn btn-secondary">Demo</a>
 <a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
+<a href="https://twitter.com/_celljs" class="btn btn-secondary">Twitter</a>
 </div>
 
 
