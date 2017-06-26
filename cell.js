@@ -9,9 +9,11 @@
       var $node = null;
       var $replacement;
       if (replace && $parent) {
-        $node = $parent;
         $replacement = Phenotype.$type(gene, namespace);
-        if ($node.parentNode) $node.parentNode.replaceChild($replacement, $node);
+        if (gene.hasOwnProperty('$cell')) {
+          $node = $parent;
+          if ($node.parentNode) $node.parentNode.replaceChild($replacement, $node);
+        }
         $node = $replacement;
       } else if (gene.$type && (gene.$type === 'head' || gene.$type === 'body') && $root.document.getElementsByTagName(gene.$type)) {
         $node = $root.document.getElementsByTagName(gene.$type)[0];
