@@ -187,9 +187,9 @@ To define a variable on an element's context, simply prepend your attribute name
 ```js
 el = {
   $cell: true,
-  $type: "a",
-  href: "#",
-  $text: "Click Me",
+  $type: "button",
+  type: "button",
+  $text: "Get next item",
   onclick: function(e) { this._next() },
   _next: function() {
     this._index++;
