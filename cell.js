@@ -369,7 +369,7 @@
         return $node;
       };
       $context.DocumentFragment.prototype.$cell = $context.Element.prototype.$cell = function(gene, options) {
-        this.$build(gene, [], null, (options && options.namespace) || null, true);
+        return this.$build(gene, [], null, (options && options.namespace) || null, true);
       };
       if ($root.NodeList && !$root.NodeList.prototype.forEach) $root.NodeList.prototype.forEach = Array.prototype.forEach; // NodeList.forEach override polyfill
     },
