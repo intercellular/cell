@@ -5,14 +5,20 @@
   // [Membrane] The Shell
   ////////////////////////////////////////////////////
   var Membrane = {
-    inject: function(gene, namespace) { // head/body/element with an id => inject instead of appending
+    inject: function($parent, gene, namespace, replace) { // head/body/element with an id, or replace === true => inject instead of appending
       var $node = null;
-      if (gene.$type && (gene.$type === 'head' || gene.$type === 'body') && $root.document.getElementsByTagName(gene.$type)) {
+      var $replacement;
+      if (replace && $parent) {
+        $node = $parent;
+        $replacement = Phenotype.$type(gene, namespace);
+        if ($node.parentNode) $node.parentNode.replaceChild($replacement, $node);
+        $node = $replacement;
+      } else if (gene.$type && (gene.$type === 'head' || gene.$type === 'body') && $root.document.getElementsByTagName(gene.$type)) {
         $node = $root.document.getElementsByTagName(gene.$type)[0];
       } else if (gene.id && $root.document.getElementById(gene.id)) {
         $node = $root.document.getElementById(gene.id);
         if ($node.nodeName.toLowerCase() !== (gene.$type || 'div')) {
-          var $replacement = Phenotype.$type(gene, namespace);
+          $replacement = Phenotype.$type(gene, namespace);
           $node.parentNode.replaceChild($replacement, $node);
           $node = $replacement;
         }
@@ -29,8 +35,8 @@
       }
       return $node;
     },
-    build: function($parent, gene, index, namespace) {
-      var $existing = Membrane.inject(gene, namespace);
+    build: function($parent, gene, index, namespace, replace) {
+      var $existing = Membrane.inject($parent, gene, namespace, replace);
       if ($existing) return $existing;
       else return Membrane.create($parent, gene, index, namespace);
     },
@@ -352,22 +358,22 @@
         return $context[k];
       });
     },
-    create: function($context) {
+    plan: function($context) {
       if ($context === undefined) $context = $root;
       else $root = $context;
-      $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(gene, inheritance, index, namespace) {
-        var $node = Membrane.build(this, gene, index, namespace);
+      $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(gene, inheritance, index, namespace, replace) {
+        var $node = Membrane.build(this, gene, index, namespace, replace);
         Genotype.build($node, gene, inheritance || [], index);
         Nucleus.build($node);
         Phenotype.build($node, $node.Genotype);
         return $node;
       };
-      if ($root.NodeList && !$root.NodeList.prototype.forEach) { // NodeList.forEach override polyfill
-        $root.NodeList.prototype.forEach = function(callback, argument) {
-          argument = argument || $root;
-          for (var i = 0; i < this.length; i++) { callback.call(argument, this[i], i, this); }
-        };
-      }
+      $context.DocumentFragment.prototype.$cell = $context.Element.prototype.$cell = function(gene, options) {
+        this.$build(gene, [], null, (options && options.namespace) || null, true);
+      };
+      if ($root.NodeList && !$root.NodeList.prototype.forEach) $root.NodeList.prototype.forEach = Array.prototype.forEach; // NodeList.forEach override polyfill
+    },
+    create: function($context) {
       return God.detect($context).map(function(gene) { // find all the Cell objects and build
         return $context.document.body.$build(gene, []);
       });
@@ -383,16 +389,18 @@
       Gene: Gene,
       Membrane: Membrane,
       God: God,
+      plan: God.plan.bind(God),
       create: God.create.bind(God),
     };
     if (typeof module !== 'undefined' && module.exports) { exports = module.exports = x; }
     exports = x;
-  }
-
-  if (this.addEventListener) {
-    // Let there be Cell
-    this.addEventListener('load', function() {
-      God.create(this);
-    });
+  } else {
+    God.plan(this);
+    if (this.addEventListener) {
+      // Let there be Cell
+      this.addEventListener('load', function() {
+        God.create(this);
+      });
+    }
   }
 }(this));

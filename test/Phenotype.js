@@ -2,12 +2,13 @@ const assert = require('assert')
 const sinon = require('sinon')
 const spy = require("./spy.js")
 const stringify = require('json-stable-stringify')
-const {Phenotype, Nucleus} = require("../cell")
+const {God, Phenotype, Nucleus} = require("../cell")
 const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
 describe("Phenotype", function() {
   require('jsdom-global')()
+  God.plan(window);
   describe("attrs", function() {
     describe("$type", function() {
       describe("text", function() {

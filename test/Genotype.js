@@ -1,13 +1,14 @@
 const assert = require('assert')
 const sinon = require('sinon')
 const stringify = require('json-stable-stringify')
-const {Genotype, Nucleus} = require("../cell")
+const {God, Genotype, Nucleus} = require("../cell")
 const spy = require("./spy.js")
 const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
 describe("Genotype", function() {
   require('jsdom-global')()
+  God.plan(window);
   describe("indenpendent from set", function() {
     describe("update", function() {
       it("calls Genotype.set and Nuclues queue", function() {
