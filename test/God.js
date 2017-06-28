@@ -9,6 +9,7 @@ const compare = function(actual, expected) {
 // Everything that interfaces with the outside world
 describe("God", function() {
   require('jsdom-global')()
+  God.plan(window);
   describe("God.detect(): finding $cell", function() {
     describe("looks for a variable with the key '$cell'", function() {
       it("only cells", function() {

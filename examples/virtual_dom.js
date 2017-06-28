@@ -11,6 +11,7 @@ const dom = new JSDOM('<html></html>', {
   },
 });
 
+cell.plan(dom.window);
 cell.create(dom.window);
 
 // perhaps this is served to a client

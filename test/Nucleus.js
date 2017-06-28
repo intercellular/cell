@@ -1,13 +1,14 @@
 const assert = require('assert')
 const sinon = require('sinon')
 const stringify = require('json-stable-stringify')
-const {Phenotype, Genotype, Nucleus} = require("../cell")
+const {God, Phenotype, Genotype, Nucleus} = require("../cell")
 const spy = require("./spy.js")
 const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
 describe("Nucleus", function() {
   require('jsdom-global')()
+  God.plan(window);
   describe("build", function() {
     // Builds a proxy
     describe("initial build", function() {

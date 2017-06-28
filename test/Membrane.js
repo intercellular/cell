@@ -2,12 +2,13 @@ const assert = require('assert')
 const sinon = require('sinon')
 const spy = require("./spy.js")
 const stringify = require('json-stable-stringify')
-const {Membrane} = require("../cell")
+const {God, Membrane} = require("../cell")
 const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
 describe("Membrane", function() {
   require('jsdom-global')()
+  God.plan(window);
   describe("build", function() {
     describe("Membrane.inject", function() {
       it("get existing head", function() {

@@ -8,6 +8,7 @@ const compare = function(actual, expected) {
 }
 describe("Nucleus", function() {
   var cleanup = require('jsdom-global')()
+  God.plan(window);
   it("has nothing at the beginning", function() {
     cleanup();
     cleanup = require('jsdom-global')()
