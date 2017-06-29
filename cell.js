@@ -353,7 +353,7 @@
       if ($context === undefined) $context = this;
       return Object.keys($context).filter(function(k) {
         try {
-          if ($context[k] instanceof $root.Element) return false; // Only look for plain javascript object
+          if (/webkitStorageInfo|webkitIndexedDB/.test(k) || $context[k] instanceof $root.Element) return false; // Only look for plain javascript object
           return $context[k] && Object.prototype.hasOwnProperty.call($context[k], '$cell');
         } catch (e) { return false; }
       }).map(function(k) {
