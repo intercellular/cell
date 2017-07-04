@@ -275,12 +275,12 @@ describe("Phenotype", function() {
   describe("build", function() {
     it("iterates through all keys in the Genotype", function() {
       spy.Phenotype.$init.reset();
-      spy.Phenotype.update.reset();
+      spy.Phenotype.set.reset();
       const $node = document.createElement("div")
       $node.Meta = {};
       const replaceChildSpy = sinon.spy($node, "replaceChild")
       Phenotype.build($node, {$type: "div", $text: "hi", class: "red"});
-      compare(spy.Phenotype.update.callCount, 3)  // iterates through all 3 keys
+      compare(spy.Phenotype.set.callCount, 3)  // iterates through all 3 keys
       compare(replaceChildSpy.callCount, 0) // should not get inside the replace block
       compare(spy.Phenotype.$init.callCount, 1)
     })
@@ -304,7 +304,7 @@ describe("Phenotype", function() {
           spy.Phenotype.$init.reset();
 
           // run
-          Phenotype.update($node, "$type", "div")
+          Phenotype.set($node, "$type", "div")
 
           // fragment.$build would trigger an $init,
           // but in this case we're not supposed to enter that block so the callcount is 0
@@ -329,7 +329,7 @@ describe("Phenotype", function() {
           spy.Phenotype.$init.reset();
 
           // run
-          Phenotype.update($node, "$type", "p")
+          Phenotype.set($node, "$type", "p")
 
           // $init is called via fragment.$build even if it's not explicitly called
           compare(spy.Phenotype.$init.callCount, 1)
@@ -346,7 +346,7 @@ describe("Phenotype", function() {
         $node.Meta = {}
         $parent.appendChild($node)
         compare($node.innerHTML, "")
-        Phenotype.update($node, "$text", "Hello")
+        Phenotype.set($node, "$text", "Hello")
         compare($node.innerHTML, "Hello")
       })
       describe("$components", function() {
@@ -363,7 +363,7 @@ describe("Phenotype", function() {
           // Before
           compare($node.innerHTML, "")
 
-          Phenotype.update($node, "$components", [])
+          Phenotype.set($node, "$components", [])
 
           // After
           compare(spy.Phenotype.$components.callCount, 1)
@@ -381,7 +381,7 @@ describe("Phenotype", function() {
           // Before
           compare($node.innerHTML, "")
 
-          Phenotype.update($node, "$components", [{$type: "div"}])
+          Phenotype.set($node, "$components", [{$type: "div"}])
 
           // After
           compare(spy.Phenotype.$components.callCount, 1)
@@ -403,13 +403,13 @@ describe("Phenotype", function() {
           compare($node.getAttribute("class"), null)
           compare($node.class, undefined)
 
-          Phenotype.update($node, "class", "red")
+          Phenotype.set($node, "class", "red")
 
           compare($node.getAttribute("class"), "red")
           compare($node.class, undefined)
         })
         it("value for pre-populated input", function() {
-          //Phenotype.update($node, "value", "bye")
+          //Phenotype.set($node, "value", "bye")
           const $parent = document.createElement("div");
           const $node = document.createElement("input")
           $node.value = "preset";
@@ -420,13 +420,13 @@ describe("Phenotype", function() {
           // normally it's set directly on the DOM as an attribute
           compare($node.value, "preset")
 
-          Phenotype.update($node, "value", "reset")
+          Phenotype.set($node, "value", "reset")
 
           compare($node.value, "reset")
 
         })
         it("value for empty input", function() {
-          //Phenotype.update($node, "value", "bye")
+          //Phenotype.set($node, "value", "bye")
           const $parent = document.createElement("div");
           const $node = document.createElement("input")
           $node.Genotype = {}
@@ -437,7 +437,7 @@ describe("Phenotype", function() {
           compare($node.getAttribute("value"), null)
           compare($node.value, "")
 
-          Phenotype.update($node, "value", "newval")
+          Phenotype.set($node, "value", "newval")
 
           compare($node.value, "newval")
         })
@@ -453,7 +453,7 @@ describe("Phenotype", function() {
         compare($node.getAttribute("data-id"), null)
         compare($node["data-id"], undefined)
 
-        Phenotype.update($node, "data-id", 1)
+        Phenotype.set($node, "data-id", 1)
 
         // After
         compare($node.getAttribute("data-id"), "1") // only set to the DOM attribute (as string)
@@ -470,7 +470,7 @@ describe("Phenotype", function() {
         compare($node.getAttribute("data-done"), null)
         compare($node["data-done"], undefined)
 
-        Phenotype.update($node, "data-done", true)
+        Phenotype.set($node, "data-done", true)
 
         // After
         compare($node.getAttribute("data-done"), "true") // only set to the DOM attribute (as string)
@@ -487,7 +487,7 @@ describe("Phenotype", function() {
         compare($node.getAttribute("fun"), null)
         compare($node.fun, undefined)
 
-        Phenotype.update($node, "fun", function(arg) {
+        Phenotype.set($node, "fun", function(arg) {
           return "fun " + arg;
         })
 

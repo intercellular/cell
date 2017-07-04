@@ -13,7 +13,7 @@ describe("Membrane", function() {
     describe("Membrane.inject", function() {
       it("get existing head", function() {
         spy.Membrane.inject.reset();
-        spy.Membrane.create.reset();
+        spy.Membrane.add.reset();
         var gene = {
           $type: "head",
           $cell: true,
@@ -26,11 +26,11 @@ describe("Membrane", function() {
         var $node = Membrane.build(window, gene, null, null)
         assert.equal($node, document.head)
         compare(spy.Membrane.inject.callCount, 1)
-        compare(spy.Membrane.create.callCount, 0)
+        compare(spy.Membrane.add.callCount, 0)
       })
       it("get existing body", function() {
         spy.Membrane.inject.reset();
-        spy.Membrane.create.reset();
+        spy.Membrane.add.reset();
         var gene = {
           $type: "body",
           $cell: true,
@@ -41,11 +41,11 @@ describe("Membrane", function() {
         compare($node.Meta, {})
         compare($node, document.body);
         compare(spy.Membrane.inject.callCount, 1)
-        compare(spy.Membrane.create.callCount, 0)
+        compare(spy.Membrane.add.callCount, 0)
       })
       it("get existing id", function() {
         spy.Membrane.inject.reset();
-        spy.Membrane.create.reset();
+        spy.Membrane.add.reset();
         document.body.innerHTML = "";
         var $widget = document.createElement("div");
         $widget.setAttribute("id", "widget");
@@ -61,18 +61,18 @@ describe("Membrane", function() {
         compare(document.body.outerHTML, "<body><div id=\"widget\"></div></body>")
         compare($node, $widget);  // same instance
         compare(spy.Membrane.inject.callCount, 1)
-        compare(spy.Membrane.create.callCount, 0)
+        compare(spy.Membrane.add.callCount, 0)
       })
     })
-    describe("Membrane.create", function() {
+    describe("Membrane.add", function() {
       it("returns a newly created node", function() {
         spy.Membrane.inject.reset();
-        spy.Membrane.create.reset();
+        spy.Membrane.add.reset();
         const $parent = document.createElement("div");
         const $child = Membrane.build($parent, {})
         compare($child.nodeType, 1)
         compare(spy.Membrane.inject.callCount, 1)
-        compare(spy.Membrane.create.callCount, 1)
+        compare(spy.Membrane.add.callCount, 1)
       })
       it("the passed in node should be the parent of the returned node", function() {
         const $parent = document.createElement("div");

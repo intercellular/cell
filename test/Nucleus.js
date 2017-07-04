@@ -213,38 +213,38 @@ describe("Nucleus", function() {
             }
             compare(Nucleus._queue.length, 1)
           })
-          it("calls Phenotype.update if something has changed (not to be confused with $update)", function(done) {
+          it("calls Phenotype.set if something has changed (not to be confused with $update)", function(done) {
             Nucleus._queue = []
             for(let i = 0; i<10; i++) {
               Nucleus.queue($div)
             }
 
-            spy.Phenotype.update.reset()
+            spy.Phenotype.set.reset()
 
             var newMutationFun = Nucleus.bind($div, oldMutationFun);
             newMutationFun("world")
 
             // 10 tasks * 3 keys
             setTimeout(function() {
-              compare(spy.Phenotype.update.callCount, 1)
+              compare(spy.Phenotype.set.callCount, 1)
               done()
             }, 100)
 
           })
-          it("does not calls Phenotype.update if nothing has changed (not to be confused with $update)", function(done) {
+          it("does not calls Phenotype.set if nothing has changed (not to be confused with $update)", function(done) {
             Nucleus._queue = []
             for(let i = 0; i<10; i++) {
               Nucleus._queue.push($div)
             }
 
-            spy.Phenotype.update.reset()
+            spy.Phenotype.set.reset()
 
             var newFun = Nucleus.bind($div, oldFun);
             newFun("world")
 
             // 10 tasks * 3 keys
             setTimeout(function() {
-              compare(spy.Phenotype.update.callCount, 0)
+              compare(spy.Phenotype.set.callCount, 0)
               done()
             }, 100)
 
@@ -260,7 +260,7 @@ describe("Nucleus", function() {
 
             $div.Genotype._done = false;
 
-            spy.Phenotype.update.reset()
+            spy.Phenotype.set.reset()
             spy.Phenotype.$update.reset()
 
             var newFun = Nucleus.bind($div, oldFun);
@@ -285,7 +285,7 @@ describe("Nucleus", function() {
             $div.Genotype._todo = false;
             $div.Genotype._done = false;
 
-            spy.Phenotype.update.reset()
+            spy.Phenotype.set.reset()
             spy.Phenotype.$update.reset()
 
             var newFun = Nucleus.bind($div, oldFun);
@@ -293,7 +293,7 @@ describe("Nucleus", function() {
 
             setTimeout(function() {
               // 1 task * 2 keys
-              compare(spy.Phenotype.update.callCount, 2)
+              compare(spy.Phenotype.set.callCount, 2)
 
               // call $update once
               compare(spy.Phenotype.$update.callCount, 1)
@@ -381,7 +381,7 @@ describe("Nucleus", function() {
               Nucleus.queue($div)
             }
 
-            spy.Phenotype.update.reset()
+            spy.Phenotype.set.reset()
             spy.Phenotype.$update.reset()
 
             var newFun = Nucleus.bind($div, oldFun);
@@ -389,7 +389,7 @@ describe("Nucleus", function() {
 
             setTimeout(function() {
               // 10 tasks * 2 keys
-              compare(spy.Phenotype.update.callCount, 0)
+              compare(spy.Phenotype.set.callCount, 0)
 
               // _todo key exists so call $update for all elements
               compare(spy.Phenotype.$update.callCount, 0)

@@ -13,7 +13,7 @@ module.exports = {
   },
   Membrane: {
     inject: sinon.spy(Membrane, "inject"),
-    create: sinon.spy(Membrane, "create")
+    add: sinon.spy(Membrane, "add")
   },
   God: {
     create: sinon.spy(God, "create"),
@@ -24,7 +24,7 @@ module.exports = {
     $update: sinon.spy(Phenotype, "$update"),
     $type: sinon.spy(Phenotype, "$type"),
     $components: sinon.spy(Phenotype, "$components"),
-    update: sinon.spy(Phenotype, "update")
+    set: sinon.spy(Phenotype, "set")
   },
   Nucleus: {
     bind: sinon.spy(Nucleus, "bind"),
