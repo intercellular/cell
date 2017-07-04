@@ -280,8 +280,8 @@
           if (key[0] === '_') inheritance = inheritance.concat([key]);
         }
         while ($parent.firstChild) { $parent.removeChild($parent.firstChild); } // remove empty text nodes
-        components.forEach(function(component, index) {
-          $fragment.$build(component, inheritance, index, $parent.Meta.namespace);
+        components.forEach(function(component) {
+          $fragment.$build(component, inheritance, null, $parent.Meta.namespace);
         });
         $parent.appendChild($fragment);
         $parent.$components = [].map.call($parent.childNodes, function($node) { return $node.Genotype; });
