@@ -6,7 +6,8 @@ module.exports = {
     update: sinon.spy(Genotype, "update")
   },
   O: {
-    defineProperty: sinon.spy(Object, "defineProperty")
+    defineProperty: sinon.spy(Object, "defineProperty"),
+    getOwnPropertyDescriptor: sinon.spy(Object, "getOwnPropertyDescriptor")
   },
   Gene: {
     freeze: sinon.spy(Gene, "freeze")
