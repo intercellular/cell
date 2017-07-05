@@ -88,10 +88,9 @@ describe("Nucleus", function() {
             spy.Genotype.update.reset();
             $div.class = "red";
 
-            var getOwnPropertySpy = sinon.spy(Object, "getOwnPropertyDescriptor")
-            getOwnPropertySpy.reset();
+            spy.O.getOwnPropertyDescriptor.reset();
             var d = $div.class;
-            compare(getOwnPropertySpy.callCount, 0);
+            compare(spy.O.getOwnPropertyDescriptor.callCount, 0);
           })
           it("properties that already exist on the DOM", function() {
             // For example, "tagName", "nodeType", etc. already exist on the element natively, and users nomrally don't set these manually. But sometimes we need to access these
@@ -100,6 +99,50 @@ describe("Nucleus", function() {
             compare(spy.Nucleus.bind.callCount, 0);
             compare(name.toLowerCase(), "div")
           })
+          describe("special properties", function() {
+            it("style", function() {
+              spy.Nucleus.bind.reset();
+              spy.Genotype.update.reset();
+              var style = $div.style;
+
+              compare(spy.Genotype.update.callCount, 0);
+
+              // the getter returns a CSSStyleDeclaration object
+              compare(Object.getPrototypeOf(style).constructor.name, "CSSStyleDeclaration");
+
+              // node setup
+              $div.Genotype = {
+                style: "background-color: red;" 
+              }
+              Nucleus.build($div)
+
+              spy.O.getOwnPropertyDescriptor.reset();
+
+              // getter is called, and the key is 'style' 
+              // so Object.getOwnPropertyDescriptor is called
+              style = $div.style;
+              compare(spy.O.getOwnPropertyDescriptor.callCount, 1);
+              // the getter returns a CSSStyleDeclaration object
+              compare(Object.getPrototypeOf(style).constructor.name, "CSSStyleDeclaration");
+
+              // string type style setter
+              spy.Genotype.update.reset();
+              spy.O.getOwnPropertyDescriptor.reset();
+              $div.style = "background-color: blue;";
+              // since the setter is called and it's not an object type style,
+              // it will trigger setAttribute and not Object.getOwnPropertyDescriptor
+              compare(spy.O.getOwnPropertyDescriptor.callCount, 0);
+
+              // object type style setter
+              spy.O.getOwnPropertyDescriptor.reset();
+              $div.style = {
+                backgroundColor: "blue"
+              }
+              // triggers setter, which triggers getter, both of which calls Object.getOwnPropertyDescriptor => 2
+              compare(spy.O.getOwnPropertyDescriptor.callCount, 2);
+              
+            });
+          });
         })
       })
       describe("set", function() {

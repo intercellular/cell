@@ -222,6 +222,9 @@
         // "_" variables don't directly alter the phenotype, so do nothing
       } else if (key === 'value') {
         $node[key] = val;
+      } else if (key === 'style' && typeof val === 'object') {
+        var CSSStyleDeclaration = Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).get.call($node);
+        for (var attr in val) { CSSStyleDeclaration[attr] = val[attr]; }
       } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
         if ($node.setAttribute) $node.setAttribute(key, val);
       } else if (typeof val === 'function') {
@@ -345,6 +348,8 @@
             if (key === 'value') {
               // The "value" attribute needs a special treatment.
               return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).get.call($node);
+            } else if (key === 'style') {
+              return Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).get.call($node);
             } else if (key in $node.Genotype) {
               // Otherwise utilize Genotype
               return $node.Genotype[key];
@@ -376,6 +381,8 @@
           if (key[0] !== '$' && key[0] !== '_') {
             if (key === 'value') {
               return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).set.call($node, val);
+            } else if (key === 'style' && typeof val === 'object') {
+              Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).set.call($node, val);
             } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
               $node.setAttribute(key, val);
             } else if (typeof val === 'function') {

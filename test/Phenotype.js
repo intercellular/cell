@@ -391,7 +391,64 @@ describe("Phenotype", function() {
     describe("[_] User defined variables", function() {
     })
     describe("[ ] dom attributes", function() {
+      describe("object", function() {
+        it("style", function() {
+          const $parent = document.createElement("div");
+          const $node = document.createElement("div")
+          $node.Genotype = {}
+          $node.Meta = {}
+          $parent.appendChild($node)
+
+          // normally it's set directly on the DOM as an attribute
+          var styleAttr = $node.getAttribute("style");
+          compare(styleAttr, null);
+
+          var styleProp = $node.style;
+          compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
+
+          Phenotype.set($node, "style", {
+            backgroundColor: "red",
+            fontFamily: "Courier"
+          })
+
+          styleAttr = $node.getAttribute("style");
+          styleProp = $node.style;
+         
+          compare(styleAttr, "background-color: red; font-family: Courier;")
+          compare(styleProp.backgroundColor, "red");
+          compare(styleProp.fontFamily, "Courier");
+
+          compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
+          
+        });
+      });
       describe("string", function() {
+        it("style", function() {
+          const $parent = document.createElement("div");
+          const $node = document.createElement("div")
+          $node.Genotype = {}
+          $node.Meta = {}
+          $parent.appendChild($node)
+
+          // normally it's set directly on the DOM as an attribute
+          var styleAttr = $node.getAttribute("style");
+          compare(styleAttr, null);
+
+          var styleProp = $node.style;
+          compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
+
+          Phenotype.set($node, "style", "background-color: red;")
+
+          styleAttr = $node.getAttribute("style");
+          styleProp = $node.style;
+         
+          compare(styleAttr, "background-color: red;")
+          // even if we initially set the style as string,
+          // we should be able to access it as an object property
+          compare(styleProp.backgroundColor, "red");
+          compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
+          
+        });
         it("class", function() {
           const $parent = document.createElement("div");
           const $node = document.createElement("div")
