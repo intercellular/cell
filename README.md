@@ -6,7 +6,7 @@
 <a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
 <a href="https://twitter.com/_celljs" class="btn btn-secondary">Twitter</a>
 
-<br>
+<br><br>
 
 [![Build Status](https://travis-ci.org/intercellular/cell.svg?branch=master)](https://travis-ci.org/intercellular/cell) [![Coverage Status](https://coveralls.io/repos/github/intercellular/cell/badge.svg)](https://coveralls.io/github/intercellular/cell)
 
