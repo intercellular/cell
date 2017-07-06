@@ -410,7 +410,7 @@
     },
     _queue: [],
     bind: function($node, v) {
-      // binding an attribute to the nucleus.
+      // Binding an attribute to the nucleus.
       // 1. No difference if the attribute is just a regular variable
       // 2. If the attribute is a function, we create a wrapper function that first executes the original function, and then triggers a phenotype update depending on the queue condition
       if (typeof v === 'function') {
