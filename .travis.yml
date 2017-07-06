@@ -11,3 +11,4 @@ jobs:
       script: bash ./travis/test.sh
 dist: trusty
 sudo: false
+after_success: npm run coverage

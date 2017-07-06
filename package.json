@@ -6,17 +6,20 @@
   "scripts": {
     "uglify": "uglifyjs cell.js --compress --mangle --output cell.min.js",
     "test:lint": "eslint cell.js",
-    "test:mocha": "mocha --require jsdom-global/register --recursive test",
-    "test": "npm run test:lint && npm run test:mocha"
+    "test:mocha": "nyc --reporter=html --reporter=text mocha --require jsdom-global/register --recursive test",
+    "test": "npm run test:lint && npm run test:mocha",
+    "coverage": "npm run test | coveralls"
   },
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "^2.13.1",
     "eslint": "^4.0.0",
     "jsdom": "^11.0.0",
     "jsdom-global": "^3.0.2",
     "json-stable-stringify": "^1.0.1",
     "mocha": "^3.3.0",
+    "nyc": "^11.0.3",
     "sinon": "^2.2.0",
     "uglify-js": "^3.0.15"
   }
