@@ -6,7 +6,7 @@
   "scripts": {
     "uglify": "uglifyjs cell.js --compress --mangle --output cell.min.js",
     "test:lint": "eslint cell.js",
-    "test:mocha": "nyc --reporter=html --reporter=text mocha --require jsdom-global/register --recursive test",
+    "test:mocha": "nyc --reporter=html --reporter=text _mocha --require jsdom-global/register",
     "test": "npm run test:lint && npm run test:mocha",
     "coverage": "npm run test | coveralls"
   },
