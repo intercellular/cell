@@ -8,7 +8,8 @@
 
 <br><br>
 
-[![Build Status](https://travis-ci.org/intercellular/cell.svg?branch=master)](https://travis-ci.org/intercellular/cell) [![Coverage Status](https://coveralls.io/repos/github/intercellular/cell/badge.svg)](https://coveralls.io/github/intercellular/cell)
+<a class="badge" href="https://travis-ci.org/intercellular/cell"><img alt="Build Status" src="https://travis-ci.org/intercellular/cell.svg?branch=master"></a>
+<a class="badge" href="https://coveralls.io/github/intercellular/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/intercellular/cell/badge.svg"></a>
 
 </div>
 
@@ -36,7 +37,8 @@ Cell has one and only one design goal: **Easy**.
 2. **Easy to use:** You just need a single HTML file with a single `<script src>` line.
 3. **Easy to read:** Write an entire app as a piece of JSON-like, human-readable data structure.
 4. **Easy to integrate:** Integrating into an existing website is as simple as copy and pasting a Youtube embed code.
-5. **Easy to reuse:** Everything is powered by stateless functions instead of classes and objects, making it extremely modular.
+5. **Easy to reuse:** Everything is powered by stateless functions instead of 
+es and objects, making it extremely modular.
 6. **Easy to maintain:** "Development workflow" doesn't exist. No NPM, No Webpack, No Babel, just vanilla Javascript and 100% based on web standards.
 
 <br>
