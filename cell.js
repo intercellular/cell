@@ -101,6 +101,7 @@
       if (['$init'].indexOf(key) === -1) {
         $node.Genotype[key] = Nucleus.bind($node, val);
       } else {
+        val.snapshot = val; // snapshot of $init
         $node.Genotype[key] = val;
       }
     },
@@ -527,15 +528,14 @@
         return this.$build(gene, [], null, (options && options.namespace) || null, true);
       };
       $context.DocumentFragment.prototype.$snapshot = $context.Element.prototype.$snapshot = function() {
-        var snapshot = {};
-        for (var key in this.Genotype) {
-          if (this.Genotype[key].snapshot) {
-            snapshot[key] = this.Genotype[key].snapshot;
-          } else {
-            snapshot[key] = this.Genotype[key];
-          }
-        }
-        return snapshot;
+        var json = JSON.stringify(this.Genotype, function(k,v) {
+          if (typeof v === 'function' && v.snapshot) { return "(" + v.snapshot.toString() + ")"; }
+          return v;
+        });
+        return JSON.parse(json, function(k, v) {
+          if (typeof v === 'string' && v.indexOf('function') >= 0) { return eval(v); }
+          return v;
+        })
       };
       if ($root.NodeList && !$root.NodeList.prototype.forEach) $root.NodeList.prototype.forEach = Array.prototype.forEach; // NodeList.forEach override polyfill
     },
