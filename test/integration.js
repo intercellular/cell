@@ -6,6 +6,30 @@ const spy = require("./spy.js")
 const compare = function(actual, expected) {
   assert.equal(stringify(actual), stringify(expected));
 }
+describe("DOM prototype overrides", function() {
+  var cleanup = require('jsdom-global')()
+  God.plan(window);
+  it("$snapshot", function() {
+    cleanup();
+    cleanup = require('jsdom-global')()
+
+    document.body.innerHTML = "";
+    window.c = {
+      $cell: true,
+      _model: [],
+      id: "el",
+      _fun: function(message) { return "Fun " + message; }
+    }
+    compare(document.body.outerHTML, "<body></body>");
+    God.create(window);
+    var fun = document.body.querySelector("#el")._fun;
+    compare(fun.snapshot.toString(), "function (message) { return \"Fun \" + message; }");
+
+    var snapshot = document.body.querySelector("#el").$snapshot();
+    compare(snapshot._fun.toString(), "function (message) { return \"Fun \" + message; }");
+  })
+
+});
 describe("Nucleus", function() {
   var cleanup = require('jsdom-global')()
   God.plan(window);

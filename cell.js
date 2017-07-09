@@ -414,7 +414,7 @@
       // 1. No difference if the attribute is just a regular variable
       // 2. If the attribute is a function, we create a wrapper function that first executes the original function, and then triggers a phenotype update depending on the queue condition
       if (typeof v === 'function') {
-        return function() {
+        var fun = function() {
           // In the following code, everything inside Nucleus.tick.call is executed AFTER the last line--v.apply($node, arguments)--because it gets added to the event loop and waits until the next render cycle.
 
           // 1. Schedule phenotype update by wrapping them in a single tick (requestAnimationFrame)
@@ -452,6 +452,8 @@
           // 2. Run the actual function, which will modify the queue
           return v.apply($node, arguments);
         };
+        fun.snapshot = v;
+        return fun;
       } else {
         return v;
       }
@@ -521,6 +523,17 @@
       };
       $context.DocumentFragment.prototype.$cell = $context.Element.prototype.$cell = function(gene, options) {
         return this.$build(gene, [], null, (options && options.namespace) || null, true);
+      };
+      $context.DocumentFragment.prototype.$snapshot = $context.Element.prototype.$snapshot = function() {
+        var snapshot = {};
+        for (var key in this.Genotype) {
+          if (this.Genotype[key].snapshot) {
+            snapshot[key] = this.Genotype[key].snapshot;
+          } else {
+            snapshot[key] = this.Genotype[key];
+          }
+        }
+        return snapshot;
       };
       if ($root.NodeList && !$root.NodeList.prototype.forEach) $root.NodeList.prototype.forEach = Array.prototype.forEach; // NodeList.forEach override polyfill
     },
