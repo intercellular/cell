@@ -551,7 +551,7 @@ describe("Phenotype", function() {
 
         // After
         compare($node.getAttribute("onclick"), null) // Doesn't exist as a DOM attribute
-        compare(spy.O.getOwnPropertyDescriptor.callCount, 1);
+        compare(spy.O.getOwnPropertyDescriptor.callCount, 1); // tries once for HTMLElement and finds onclick so only one time trial.
 
 
         // NON HTMLElement method set
@@ -560,7 +560,7 @@ describe("Phenotype", function() {
           return "fun " + arg;
         })
         compare($node.getAttribute("fun"), null) // Doesn't exist as a DOM attribute
-        compare(spy.O.getOwnPropertyDescriptor.callCount, 1);
+        compare(spy.O.getOwnPropertyDescriptor.callCount, 2); // tries both for HTMLElement and Element, because `fun` doesn't exist.
 
       })
     })

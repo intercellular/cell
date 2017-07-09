@@ -199,6 +199,9 @@
       Phenotype.$init($node);
     },
     multiline: function(fn) { return /\/\*!?(?:@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)[ \t]*\*\//.exec(fn.toString())[1]; },
+    get: function(key) {
+      return Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key) || Object.getOwnPropertyDescriptor($root.Element.prototype, key);
+    },
     set: function($node, key, val) {
       if (key[0] === '$') {
         if (key === '$type') {
@@ -224,13 +227,13 @@
       } else if (key === 'value') {
         $node[key] = val;
       } else if (key === 'style' && typeof val === 'object') {
-        var CSSStyleDeclaration = Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).get.call($node);
+        var CSSStyleDeclaration = Phenotype.get(key).get.call($node);
         for (var attr in val) { CSSStyleDeclaration[attr] = val[attr]; }
       } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
         if ($node.setAttribute) $node.setAttribute(key, val);
       } else if (typeof val === 'function') {
         // For natively supported HTMLElement.prototype methods such as onclick()
-        var prop = Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key);
+        var prop = Phenotype.get(key);
         if (prop) prop.set.call($node, val);
       }
     },
@@ -352,7 +355,7 @@
               // The "value" attribute needs a special treatment.
               return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).get.call($node);
             } else if (key === 'style') {
-              return Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).get.call($node);
+              return Phenotype.get(key).get.call($node);
             } else if (key in $node.Genotype) {
               // Otherwise utilize Genotype
               return $node.Genotype[key];
@@ -361,7 +364,7 @@
               // For example, there are many DOM attributes such as "tagName" that come with the node by default.
               // These are not something we directly define on a gene object, but we still need to be able to access them..
               // In this case we just use the native HTMLElement.prototype accessor
-              return Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).get.call($node);
+              return Phenotype.get(key).get.call($node);
             }
           }
         },
@@ -385,11 +388,11 @@
             if (key === 'value') {
               return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).set.call($node, val);
             } else if (key === 'style' && typeof val === 'object') {
-              Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).set.call($node, val);
+              Phenotype.get(key).set.call($node, val);
             } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
               $node.setAttribute(key, val);
             } else if (typeof val === 'function') {
-              Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).set.call($node, val);
+              Phenotype.get(key).set.call($node, val);
             }
           }
         },
