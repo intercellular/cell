@@ -533,25 +533,6 @@ describe("Phenotype", function() {
         compare($node.getAttribute("data-done"), "true") // only set to the DOM attribute (as string)
         compare($node["data-done"], undefined)  // the property should be undefined
       })
-      it("function", function() {
-        const $parent = document.createElement("div");
-        const $node = document.createElement("div")
-        $node.Genotype = {}
-        $node.Meta = {}
-        $parent.appendChild($node)
-
-        // Before
-        compare($node.getAttribute("fun"), null)
-        compare($node.fun, undefined)
-
-        Phenotype.set($node, "fun", function(arg) {
-          return "fun " + arg;
-        })
-
-        // After
-        compare($node.getAttribute("fun"), null) // Doesn't exist as a DOM attribute
-        compare($node.fun("sad"), "fun sad")  // Attached as a variable
-      })
     })
   })
 })

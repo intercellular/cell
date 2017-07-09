@@ -18,6 +18,7 @@ describe("DOM prototype overrides", function() {
       $cell: true,
       _model: [],
       id: "el",
+      onclick: function(e) { console.log("clicked"); },
       _fun: function(message) { return "Fun " + message; }
     }
     compare(document.body.outerHTML, "<body></body>");
@@ -25,8 +26,12 @@ describe("DOM prototype overrides", function() {
     var fun = document.body.querySelector("#el")._fun;
     compare(fun.snapshot.toString(), "function (message) { return \"Fun \" + message; }");
 
+    var onclick = document.body.querySelector("#el").Genotype.onclick;
+    compare(onclick.snapshot.toString(), "function (e) { console.log(\"clicked\"); }");
+
     var snapshot = document.body.querySelector("#el").$snapshot();
     compare(snapshot._fun.toString(), "function (message) { return \"Fun \" + message; }");
+    compare(snapshot.onclick.toString(), "function (e) { console.log(\"clicked\"); }");
   })
 
 });

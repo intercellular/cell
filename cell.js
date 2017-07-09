@@ -226,9 +226,8 @@
         var CSSStyleDeclaration = Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key).get.call($node);
         for (var attr in val) { CSSStyleDeclaration[attr] = val[attr]; }
       } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
+        // only set non-function attributes. Functions are taken care of on a nucleus level
         if ($node.setAttribute) $node.setAttribute(key, val);
-      } else if (typeof val === 'function') {
-        $node[key] = val;
       }
     },
     $type: function(model, namespace) {
