@@ -533,6 +533,36 @@ describe("Phenotype", function() {
         compare($node.getAttribute("data-done"), "true") // only set to the DOM attribute (as string)
         compare($node["data-done"], undefined)  // the property should be undefined
       })
+      it("function (only native HTMLElement methods are supported)", function() {
+        const $parent = document.createElement("div");
+        const $node = document.createElement("div")
+        $node.Genotype = {}
+        $node.Meta = {}
+        $parent.appendChild($node)
+
+        // Before
+        compare($node.getAttribute("onclick"), null)
+
+        spy.O.getOwnPropertyDescriptor.reset();
+
+        Phenotype.set($node, "onclick", function(arg) {
+          return "fun " + arg;
+        })
+
+        // After
+        compare($node.getAttribute("onclick"), null) // Doesn't exist as a DOM attribute
+        compare(spy.O.getOwnPropertyDescriptor.callCount, 1);
+
+
+        // NON HTMLElement method set
+        spy.O.getOwnPropertyDescriptor.reset();
+        Phenotype.set($node, "fun", function(arg) {
+          return "fun " + arg;
+        })
+        compare($node.getAttribute("fun"), null) // Doesn't exist as a DOM attribute
+        compare(spy.O.getOwnPropertyDescriptor.callCount, 1);
+
+      })
     })
   })
 })
