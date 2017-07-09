@@ -528,14 +528,14 @@
         return this.$build(gene, [], null, (options && options.namespace) || null, true);
       };
       $context.DocumentFragment.prototype.$snapshot = $context.Element.prototype.$snapshot = function() {
-        var json = JSON.stringify(this.Genotype, function(k,v) {
-          if (typeof v === 'function' && v.snapshot) { return "(" + v.snapshot.toString() + ")"; }
+        var json = JSON.stringify(this.Genotype, function(k, v) {
+          if (typeof v === 'function' && v.snapshot) { return '(' + v.snapshot.toString() + ')'; }
           return v;
         });
         return JSON.parse(json, function(k, v) {
           if (typeof v === 'string' && v.indexOf('function') >= 0) { return eval(v); }
           return v;
-        })
+        });
       };
       if ($root.NodeList && !$root.NodeList.prototype.forEach) $root.NodeList.prototype.forEach = Array.prototype.forEach; // NodeList.forEach override polyfill
     },
