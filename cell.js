@@ -230,7 +230,7 @@
       } else if (typeof val === 'function') {
         // For natively supported HTMLElement.prototype methods such as onclick()
         var prop = Object.getOwnPropertyDescriptor($root.HTMLElement.prototype, key);
-        if(prop) prop.set.call($node, val);
+        if (prop) prop.set.call($node, val);
       }
     },
     $type: function(model, namespace) {
