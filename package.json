@@ -21,7 +21,7 @@
     "json-stable-stringify": "^1.0.1",
     "mocha": "^3.3.0",
     "nyc": "^11.0.3",
-    "phd": "^1.0.2",
+    "phd": "^1.0.3",
     "sinon": "^2.2.0",
     "uglify-js": "^3.0.15"
   }

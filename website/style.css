@@ -63,6 +63,7 @@ body {
   border-radius: 40px;
   text-decoration: none;
   margin: 5px;
+  display: inline-block;
 }
 .btn-primary {
   border: 2px solid rgba(0,0,0,0.8);
