@@ -1,0 +1,26 @@
+#twitter .avatar{
+  width: 80px; height: 80px; margin-right: 10px; border-radius: 40px;
+}
+#twitter h5{
+  font-size: 18px; margin: 0 0 10px; color: #FFA100;
+}
+#twitter .container{
+  padding: 50px; max-width: 800px; margin: 0 auto; position: relative;
+}
+#twitter .item{
+  font-family: "HelveticaNeue", helvetica; display: flex; font-size: 14px; color: rgba(255,255,255,0.8); padding: 20px;
+  -moz-transition: all 2s ease-in-out;
+  -webkit-transition: all 2s ease-in-out;
+  -ms-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 2s ease-in-out;
+  opacity: 1;
+  top: -100px;
+  max-width: 2000px;
+}
+#twitter .body img{
+  width: 100%; margin-top: 20px;
+}
+#twitter .item.hidden{
+  opacity: 0; top: 0px; max-height: 0;
+}
