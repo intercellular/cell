@@ -5,6 +5,7 @@
 <a href="https://play.celljs.org" class="btn btn-secondary">Demo</a>
 <a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
 <a href="https://twitter.com/_celljs" class="btn btn-secondary">Twitter</a>
+<a href="https://celljs.now.sh" class="btn btn-secondary">Slack</a>
 
 <br><br>
 
@@ -12,6 +13,8 @@
 <a class="badge" href="https://coveralls.io/github/intercellular/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/intercellular/cell/badge.svg"></a>
 
 </div>
+
+<div id='mailchimp'></div>
 
 
 # Cell

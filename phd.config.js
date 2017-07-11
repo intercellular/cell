@@ -12,6 +12,9 @@ module.exports = {
     'https://fonts.googleapis.com/css?family=Merriweather:900',
     './website/style.css'
   ],
+  inject: {
+    "#mailchimp": "./website/components/mailchimp/form.html"
+  },
   init: function() {
 
     var container = document.createElement('div');

@@ -28,18 +28,40 @@ window.onload = function () {
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/grayscale.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Merriweather:900" rel="stylesheet">
-<link href="./website/style.css" rel="stylesheet"></head><body><div id="phd"><p><img src ="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo"></p>
+<link href="./website/style.css" rel="stylesheet"></head><body><div id="phd"><p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/celljs.png" class="logo"></p>
 <div class="header">
 <a href="https://github.com/intercellular/cell" class="btn btn-primary">GitHub</a>
 <a href="https://play.celljs.org" class="btn btn-secondary">Demo</a>
 <a href="https://tutorial.celljs.org" class="btn btn-secondary">Tutorial</a>
 <a href="https://twitter.com/_celljs" class="btn btn-secondary">Twitter</a>
+<a href="https://celljs.now.sh" class="btn btn-secondary">Slack</a>
 
 <br><br>
 
 <a class="badge" href="https://travis-ci.org/intercellular/cell"><img alt="Build Status" src="https://travis-ci.org/intercellular/cell.svg?branch=master"></a>
 <a class="badge" href="https://coveralls.io/github/intercellular/cell"><img alt="Coverage Status" src="https://coveralls.io/repos/github/intercellular/cell/badge.svg"></a>
 
+</div>
+
+<div id="mailchimp"><div id="mc_embed_signup">
+<form action="//textethan.us8.list-manage.com/subscribe/post?u=54e23b3fe61843c19c384fc05&amp;id=b70665c6be" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate="">
+  <div id="mc_embed_signup_scroll">
+    <h4>Subscribe to Newsletter</h4>
+    <div class="mc-field-group">
+      <input placeholder="Enter email adddress" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+    </div>
+    <div id="mce-responses" class="clear">
+      <div class="response" id="mce-error-response" style="display:none"></div>
+      <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_54e23b3fe61843c19c384fc05_b70665c6be" tabindex="-1" value=""></div>
+    <div class="clear align-right">
+      <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button btn btn-primary">
+    </div>
+  </div>
+</form>
+</div>
+<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
 </div>
 
 
@@ -63,7 +85,7 @@ window.onload = function () {
 <li><strong>Easy to integrate:</strong> Integrating into an existing website is as simple as copy and pasting a Youtube embed code.</li>
 <li><strong>Easy to reuse:</strong> Everything is powered by stateless functions instead of 
 es and objects, making it extremely modular.</li>
-<li><strong>Easy to maintain:</strong> &quot;Development workflow&quot; doesn&#39;t exist. No NPM, No Webpack, No Babel, just vanilla Javascript and 100% based on web standards.</li>
+<li><strong>Easy to maintain:</strong> "Development workflow" doesn't exist. No NPM, No Webpack, No Babel, just vanilla Javascript and 100% based on web standards.</li>
 </ol>
 <p><br></p>
 <h1 id="try-now">Try Now</h1>
@@ -71,34 +93,34 @@ es and objects, making it extremely modular.</li>
 <p>Seriously, there is no additional code or dependency, no environment to set up. What you see is what you get.</p>
 <h3 id="-download-and-try-it-https-s3-us-west-2-amazonaws-com-fm-ethan-jason-cell_sync-html-"><a href="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/cell_sync.html">Download and Try it!</a></h3>
 <pre><code class="lang-html">&lt;html&gt;
-&lt;script src=&quot;https://www.celljs.org/cell.js&quot;&gt;&lt;/script&gt;
+&lt;script src="https://www.celljs.org/cell.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 var el = {
   $cell: true,
-  style: &quot;font-family: Helvetica; font-size: 14px;&quot;,
+  style: "font-family: Helvetica; font-size: 14px;",
   $components: [
     {
-      $type: &quot;input&quot;,
-      type: &quot;text&quot;,
-      placeholder: &quot;Type something and press enter&quot;,
-      style: &quot;width: 100%; outline:none; padding: 5px;&quot;,
+      $type: "input",
+      type: "text",
+      placeholder: "Type something and press enter",
+      style: "width: 100%; outline:none; padding: 5px;",
       $init: function(e) { this.focus() },
       onkeyup: function(e) {
         if (e.keyCode === 13) {
-          document.querySelector(&quot;#list&quot;)._add(this.value);
-          this.value = &quot;&quot;;
+          document.querySelector("#list")._add(this.value);
+          this.value = "";
         }
       }
     },
     {
-      $type: &quot;ol&quot;,
-      id: &quot;list&quot;,
+      $type: "ol",
+      id: "list",
       _items: [],
       $components: [],
       _add: function(val) { this._items.push(val) },
       $update: function() {
         this.$components = this._items.map(function(item) {
-          return { $type: &quot;li&quot;, $text: item }
+          return { $type: "li", $text: item }
         })
       }
     }
@@ -108,7 +130,7 @@ var el = {
 &lt;/html&gt;
 </code></pre>
 <p><br></p>
-<p>Here&#39;s the generated DOM tree, as viewed in Chrome inspector:</p>
+<p>Here's the generated DOM tree, as viewed in Chrome inspector:</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/autnonomous_dom.png" alt="autonomous dom"></p>
 <p><br></p>
 <h1 id="there-is-no-framework">There Is No Framework</h1>
@@ -129,12 +151,12 @@ var el = {
 <h2 id="rule-1-attributes-map-1-1-to-dom-attributes-by-default-">Rule #1. Attributes map 1:1 to DOM attributes by default.</h2>
 <p>When you define a javascript object, its attributes map 1:1 to DOM attributes. So,</p>
 <pre><code class="lang-js">var node = {
-  id: &quot;container&quot;,
-  class: &quot;red&quot;
+  id: "container",
+  class: "red"
 }
 </code></pre>
 <p>maps to:</p>
-<pre><code class="lang-html">&lt;div id=&quot;container&quot; class=&quot;red&quot;&gt;&lt;/div&gt;
+<pre><code class="lang-html">&lt;div id="container" class="red"&gt;&lt;/div&gt;
 </code></pre>
 <p><br></p>
 <h2 id="rule-2-use-7-special-keywords-to-declare-the-cell-structrure">Rule #2. Use 7 special keywords to declare the cell structrure</h2>
@@ -179,13 +201,13 @@ var el = {
 <p>For example,</p>
 <pre><code class="lang-js">var el = {
   $cell: true,
-  $type: &quot;div&quot;,
+  $type: "div",
   $components: [
-    { $type: &quot;span&quot;, $text: &quot;Javascript&quot; },
-    { $type: &quot;span&quot;, $text: &quot;objective-c&quot; },
-    { $type: &quot;span&quot;, $text: &quot;ruby&quot; },
-    { $type: &quot;span&quot;, $text: &quot;java&quot; },
-    { $type: &quot;span&quot;, $text: &quot;lisp&quot; }
+    { $type: "span", $text: "Javascript" },
+    { $type: "span", $text: "objective-c" },
+    { $type: "span", $text: "ruby" },
+    { $type: "span", $text: "java" },
+    { $type: "span", $text: "lisp" }
   ]
 }
 </code></pre>
@@ -199,21 +221,21 @@ var el = {
 &lt;/div&gt;
 </code></pre>
 <p><br></p>
-<h2 id="rule-3-use-the-_-prefix-to-store-data-and-logic-on-an-html-element">Rule #3. Use the &quot;_&quot; Prefix to Store Data and Logic on an HTML Element</h2>
+<h2 id="rule-3-use-the-_-prefix-to-store-data-and-logic-on-an-html-element">Rule #3. Use the "_" Prefix to Store Data and Logic on an HTML Element</h2>
 <p>Cell lets you store data and application logic directly on HTML elements.</p>
-<p>To define a variable on an element&#39;s context, simply prepend your attribute name with &quot;_&quot;. Cell will treat it as data and make sure it doesn&#39;t affect the view.</p>
+<p>To define a variable on an element's context, simply prepend your attribute name with "_". Cell will treat it as data and make sure it doesn't affect the view.</p>
 <pre><code class="lang-js">el = {
   $cell: true,
-  $type: &quot;button&quot;,
-  type: &quot;button&quot;,
-  $text: &quot;Get next item&quot;,
+  $type: "button",
+  type: "button",
+  $text: "Get next item",
   onclick: function(e) { this._next() },
   _next: function() {
     this._index++;
     this.$text = this._items[this._index];
   },
   _index: 0,
-  _items: [&quot;javascript&quot;, &quot;objective-c&quot;, &quot;ruby&quot;, &quot;java&quot;, &quot;lisp&quot;]
+  _items: ["javascript", "objective-c", "ruby", "java", "lisp"]
 }
 </code></pre>
 <p>Here we use <code>_items</code> to store an array, <code>_index</code> to store an integer counter, and <code>_next</code> to store a function that will run this element by incrementing <code>_index</code> and iterating through <code>_items</code>.</p>
@@ -221,14 +243,14 @@ var el = {
 <h1 id="how-it-works">How it works</h1>
 <h2 id="1-cell-is-a-single-function-that-creates-a-dom-tree-">1. Cell is a Single Function that Creates a DOM Tree.</h2>
 <p>When Cell loads, it first looks for all Javascript variables that have a <code>$cell</code> key.</p>
-<p>When it finds one, it takes that blueprint object (called a <code>&quot;Genotype&quot;</code> in Cell) and creates a DOM tree (<code>&quot;Phenotype&quot;</code>) from it.</p>
+<p>When it finds one, it takes that blueprint object (called a <code>"Genotype"</code> in Cell) and creates a DOM tree (<code>"Phenotype"</code>) from it.</p>
 <p><br></p>
 <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/function.jpg" alt="generator"></p>
 <p><br></p>
 <h2 id="2-self-driving-dom">2. Self-driving DOM</h2>
-<p>So far this is just a static DOM tree. To make it dynamic, you need to write a program that &quot;remote controls&quot; these HTML elements.</p>
+<p>So far this is just a static DOM tree. To make it dynamic, you need to write a program that "remote controls" these HTML elements.</p>
 <p>Normally javascript frameworks maintain a separate <strong>centralized data structure and application context (<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a> or some variation)</strong> that synchronizes with and controls HTML elements dynamically.</p>
-<p><strong>Cell takes a decentralized approach.</strong> It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own) and can therefore &quot;drive&quot; itself autonomously (Internally called <code>&quot;Nucleus&quot;</code>).</p>
+<p><strong>Cell takes a decentralized approach.</strong> It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own) and can therefore "drive" itself autonomously (Internally called <code>"Nucleus"</code>).</p>
 <p><br></p>
 <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/domtree.jpg" alt="Image"></p>
 <p><br></p>
@@ -239,8 +261,8 @@ var el = {
 <h2 id="1-there-is-no-god-there-is-no-framework-">1. There is No God (There is No Framework)</h2>
 <p>Cell has no overarching framework that powers each and every corner of your app.</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/architecture.jpg" alt="Image"></p>
-<p>Normally web app frameworks maintain a central &quot;Model-View-Controller&quot; architecture (or similar) which takes care of everything throughout the app&#39;s lifecycle.</p>
-<p>Cell works differently. It just creates the DOM and then goes away, because each HTML element it creates can self-drive itself with its <strong>own</strong> model-view-controller. Instead of controlling the DOM remotely with a framework&#39;s API, with Cell you control it directly and natively.</p>
+<p>Normally web app frameworks maintain a central "Model-View-Controller" architecture (or similar) which takes care of everything throughout the app's lifecycle.</p>
+<p>Cell works differently. It just creates the DOM and then goes away, because each HTML element it creates can self-drive itself with its <strong>own</strong> model-view-controller. Instead of controlling the DOM remotely with a framework's API, with Cell you control it directly and natively.</p>
 <table>
 <thead>
 <tr>
@@ -277,14 +299,14 @@ var el = {
 <p>Nowadays, just to make a simple web app you need to learn all kinds of middlemen technologies.</p>
 <p>These tools were born out of necessity as web apps became more complex. But if you take a fundamentally different approach, you may not need them at all.</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/process.jpg" alt="Image"></p>
-<p>Here are some of the reasons why these middlemen have been necessary, and <strong>why Cell doesn&#39;t need them</strong>.</p>
+<p>Here are some of the reasons why these middlemen have been necessary, and <strong>why Cell doesn't need them</strong>.</p>
 <h5 id="1-frameworks-have-a-class-you-have-to-inherit-or-extend-">1. Frameworks have a class you have to inherit or extend.</h5>
 <blockquote>
 <p>Normally web app frameworks let you use their API by extending or inheriting from their class. Cell has no class and no API method.</p>
 </blockquote>
 <h5 id="2-frameworks-depend-on-other-libraries-">2. Frameworks depend on other libraries.</h5>
 <blockquote>
-<p>Most web app frameworks depend on other complex libraries (Don&#39;t forget to <code>npm install</code> before doing anything!) Cell doesn&#39;t depend on any library.</p>
+<p>Most web app frameworks depend on other complex libraries (Don't forget to <code>npm install</code> before doing anything!) Cell doesn't depend on any library.</p>
 </blockquote>
 <h5 id="3-frameworks-introduce-dependencies-">3. Frameworks introduce dependencies.</h5>
 <blockquote>
@@ -292,50 +314,50 @@ var el = {
 </blockquote>
 <h5 id="4-framework-specific-markup-needs-to-be-compiled-">4. Framework-specific markup needs to be compiled.</h5>
 <blockquote>
-<p>Cell stays away from inventing any framework-specific markup such as HTML templates. There&#39;s no template to compile.</p>
+<p>Cell stays away from inventing any framework-specific markup such as HTML templates. There's no template to compile.</p>
 </blockquote>
 <h5 id="5-frameworks-require-you-to-transpile-compile-and-or-build-your-app-to-make-it-work-">5. Frameworks require you to transpile, compile, and/or build your app to make it work.</h5>
 <blockquote>
-<p>Cell is built with ES5, which works in ALL browsers (including IE). There&#39;s no need to transpile your code to use Cell, it just works right away.</p>
+<p>Cell is built with ES5, which works in ALL browsers (including IE). There's no need to transpile your code to use Cell, it just works right away.</p>
 </blockquote>
 <p><br></p>
 <h2 id="3-app-as-data">3. App as Data</h2>
 <p>Cell is based on the same idea behind <a href="https://www.jasonette.com">Jasonette</a>, a simple way to build cross-platform iOS/Android native apps with nothing but JSON markup.</p>
 <p>Just like Jasonette, Cell lets you express <strong>application logic as a piece of flat data</strong>. This allows you to not only transform and manipulate data, but also the application logic itself.</p>
-<p>Let&#39;s say we have this view:</p>
+<p>Let's say we have this view:</p>
 <pre><code class="lang-js">var El = {
   $cell: true,
-  class: &quot;container&quot;,
+  class: "container",
   $components: [
-    { $type: &quot;span&quot;, $text: &quot;Four Barrel&quot;, class: &quot;row&quot; },
-    { $type: &quot;span&quot;, $text: &quot;Philz&quot;, class: &quot;row&quot; },
-    { $type: &quot;span&quot;, $text: &quot;Blue Bottle&quot;, class: &quot;row&quot; },
-    { $type: &quot;span&quot;, $text: &quot;Stumptown&quot;, class: &quot;row&quot; },
-    { $type: &quot;span&quot;, $text: &quot;Counter Culture&quot;, class: &quot;row&quot; }
+    { $type: "span", $text: "Four Barrel", class: "row" },
+    { $type: "span", $text: "Philz", class: "row" },
+    { $type: "span", $text: "Blue Bottle", class: "row" },
+    { $type: "span", $text: "Stumptown", class: "row" },
+    { $type: "span", $text: "Counter Culture", class: "row" }
   ]
 }
 </code></pre>
-<p>We see many repeating <code>span</code> lines, so let&#39;s extract them out into a function:</p>
-<pre><code class="lang-js">Coffee = [&quot;Four Barrel&quot;, &quot;Philz&quot;, &quot;Blue Bottle&quot;, &quot;Stumptown&quot;, &quot;Counter Culture&quot;]
+<p>We see many repeating <code>span</code> lines, so let's extract them out into a function:</p>
+<pre><code class="lang-js">Coffee = ["Four Barrel", "Philz", "Blue Bottle", "Stumptown", "Counter Culture"]
 Item = function(brand) {
-  return { $type: &quot;span&quot;, $text: brand, class: &quot;row&quot; }
+  return { $type: "span", $text: brand, class: "row" }
 }
 var El = {
   $cell: true,
-  class: &quot;container&quot;,
+  class: "container",
   $components: Coffee.map(Item)
 }
 </code></pre>
 <p>Notice how the <code>Item</code> is simply a stateless function. We run a <code>map</code> on it with the <code>Coffee</code> array and end up with the same structure as before.</p>
 <p><br></p>
 <h2 id="4-extreme-modularity-with-functional-programming">4. Extreme Modularity with Functional Programming</h2>
-<p>Normally web app frameworks implement reusable components with <strong>classes</strong>. You need to extend the framework&#39;s class and then create components from its instance.</p>
-<p>A &quot;component&quot; on Cell is nothing more than a <strong>stateless function</strong>. This is extremely liberating because functions have zero overhead compared to classes.</p>
+<p>Normally web app frameworks implement reusable components with <strong>classes</strong>. You need to extend the framework's class and then create components from its instance.</p>
+<p>A "component" on Cell is nothing more than a <strong>stateless function</strong>. This is extremely liberating because functions have zero overhead compared to classes.</p>
 <p>Because of this functional programming approach:</p>
 <ol>
 <li>You can split out your app into as many modules as you want.</li>
 <li>Being able to break down your app into such granular pieces makes it extremely reusable, even in other apps.</li>
-<li>&quot;Components&quot; are not just for views anymore. Because your app logic fits into a JSON-like object that can be easily transformed, filtered, and manipulated, components can encapsulate the entire Model-View-Controller.</li>
+<li>"Components" are not just for views anymore. Because your app logic fits into a JSON-like object that can be easily transformed, filtered, and manipulated, components can encapsulate the entire Model-View-Controller.</li>
 </ol>
 <p><br></p>
 <h2 id="5-write-future-proof-code">5. Write Future-proof Code</h2>
@@ -343,27 +365,27 @@ var El = {
 <p>So if you ever want to use a new framework, you have to rewrite the entire app, taking a huge amount of time to make it do exactly the same thing it used to do.</p>
 <p><strong>With Cell, your can write code that never becomes useless</strong>, simply because:</p>
 <ol>
-<li>Cell doesn&#39;t have an API, so there&#39;s nothing to &quot;depend&quot; on.</li>
+<li>Cell doesn't have an API, so there's nothing to "depend" on.</li>
 <li>With the functional programming approach, you can write infinitely modular code.</li>
 </ol>
 <p><br></p>
 <h2 id="6-native-dom-as-app-container">6. Native DOM as App Container</h2>
-<p>Being able to containerize your app&#39;s logic and data inside its HTML elements and then &quot;ship&quot; it to the DOM enables a lot of cool things.</p>
+<p>Being able to containerize your app's logic and data inside its HTML elements and then "ship" it to the DOM enables a lot of cool things.</p>
 <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/container.png" alt="container"></p>
 <h3 id="a-integrate-with-any-web-technology-natively-">A. Integrate with ANY Web Technology Natively.</h3>
 <blockquote>
 <p>Looks like a DOM, Acts like a DOM, it actually IS a DOM</p>
 </blockquote>
-<p>Cell creates an <strong>&quot;Actual DOM&quot;</strong>. There&#39;s nothing virtual or magical about it. It really IS just a pure HTML element.</p>
+<p>Cell creates an <strong>"Actual DOM"</strong>. There's nothing virtual or magical about it. It really IS just a pure HTML element.</p>
 <p>This means we can apply any 3rd party Javascript or CSS libraries (like <strong>jQuery</strong>, <strong>Bootstrap</strong>, <strong>Foundation</strong>, <strong>Select2</strong>, <strong>CodeMirror</strong>, etc.) the same way we would use it on vanilla HTML.</p>
 <p><br></p>
 <h3 id="b-plug-into-existing-websites-like-a-widget-">B. Plug into EXISTING Websites like a widget.</h3>
 <p>Normally, using a web app framework is an <strong>all or nothing</strong> deal, because the framework takes over your entire frontend.</p>
-<p>Cell completely encapsulates your app&#39;s logic into discrete HTML elements, so integrating it into an existing web app or website is as simple as <strong>copy and paste</strong>.</p>
-<div id='widget'></div>
+<p>Cell completely encapsulates your app's logic into discrete HTML elements, so integrating it into an existing web app or website is as simple as <strong>copy and paste</strong>.</p>
+<div id="widget"></div>
 
 <p><br></p>
-<div id='twitter'></div>
+<div id="twitter"></div>
 
 <p><br></p>
 </div></body></html>

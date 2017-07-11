@@ -5,6 +5,21 @@ hr {
   padding: 20px;
   border: none;
 }
+input.email {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+}
+#mailchimp {
+  max-width: 500px;
+  border-radius: 5px;
+  background: #f0f0f0;
+  padding: 10px 20px;
+  margin: 0 auto;
+}
+.align-right{
+  text-align: right;
+}
 .logo {
   text-align: center;
 }
@@ -36,7 +51,7 @@ table {
 }
 .header {
   text-align: center;
-  padding: 50px;
+  padding: 20px;
 }
 blockquote {
   margin: 10px 0;
@@ -52,10 +67,6 @@ body {
   padding: 20px;
   box-sizing: border-box;
   color: rgba(0,0,0,0.7);
-  bbackground: url(https://s-media-cache-ak0.pinimg.com/originals/a4/79/4c/a4794cbfe048505d9645339738a8ddc7.gif) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
 }
 .btn {
   padding: 5px 10px;
@@ -152,6 +163,16 @@ a {
 }
 ol {
   padding: 20px;
+}
+h4 {
+  margin: 0;
+}
+.mc-field-group {
+  margin: 10px 0;
+}
+.mc-field-group input {
+  border: none;
+  outline: none;
 }
 h5 {
   font-family: Merriweather;
