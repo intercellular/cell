@@ -274,7 +274,7 @@ Comparison 	|Frameworks before Cell		| Cell
 -------------|--------------|------------------------------
 Control 		| Centralized 		| Decentralized
 Structure		| A master Model-View-Controller program that controls all the HTML elements | Each html element as the container of its own Model-View-Controller logic
-Your App		| Full of framework API syntax | Just a vanillla Javascript. No framework code.
+Your App		| Full of framework API syntax | Just a vanilla Javascript. No framework code.
 Job				| Manages everything throughout the entire app lifecycle | Runs exactly once at the beginning to create an autonomous DOM tree, and then goes away.
 
 <br>
