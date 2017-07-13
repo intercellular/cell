@@ -128,7 +128,7 @@ To use Cell, you simply define a variable that describes the DOM content and beh
 
 ## Rule #1. Attributes map 1:1 to DOM attributes by default.
 
-When you define a javascript object, its attributes map 1:1 to DOM attributes. So,
+When you define a Javascript object, its attributes map 1:1 to DOM attributes. So,
 
 ```js
 var node = {
@@ -145,7 +145,7 @@ maps to:
 
 <br>
 
-## Rule #2. Use 7 special keywords to declare the cell structrure
+## Rule #2. Use 7 special keywords to declare the cell structure
 
 Key				| Description
 -------------|---------------------------------
@@ -238,7 +238,7 @@ When it finds one, it takes that blueprint object (called a `"Genotype"` in Cell
 
 So far this is just a static DOM tree. To make it dynamic, you need to write a program that "remote controls" these HTML elements.
 
-Normally javascript frameworks maintain a separate **centralized data structure and application context ([Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) or some variation)** that synchronizes with and controls HTML elements dynamically.
+Normally Javascript frameworks maintain a separate **centralized data structure and application context ([Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) or some variation)** that synchronizes with and controls HTML elements dynamically.
 
 **Cell takes a decentralized approach.** It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own) and can therefore "drive" itself autonomously (Internally called `"Nucleus"`).
 
@@ -274,7 +274,7 @@ Comparison 	|Frameworks before Cell		| Cell
 -------------|--------------|------------------------------
 Control 		| Centralized 		| Decentralized
 Structure		| A master Model-View-Controller program that controls all the HTML elements | Each html element as the container of its own Model-View-Controller logic
-Your App		| Full of framework API syntax | Just a vanillla javascript. No framework code.
+Your App		| Full of framework API syntax | Just a vanillla Javascript. No framework code.
 Job				| Manages everything throughout the entire app lifecycle | Runs exactly once at the beginning to create an autonomous DOM tree, and then goes away.
 
 <br>
@@ -296,7 +296,7 @@ Here are some of the reasons why these middlemen have been necessary, and **why 
 > Most web app frameworks depend on other complex libraries (Don't forget to `npm install` before doing anything!) Cell doesn't depend on any library.
 
 ##### 3. Frameworks introduce dependencies.
-> Just by choosing to use a framework you have already lost the war against dependency. From then on, you need to use `npm install` for every frontend javascript library you need to use. Cell frees you from this loop and lets you use frontend Javascript libraries with simple `<script src>`.
+> Just by choosing to use a framework you have already lost the war against dependency. From then on, you need to use `npm install` for every frontend Javascript library you need to use. Cell frees you from this loop and lets you use frontend Javascript libraries with simple `<script src>`.
 
 ##### 4. Framework-specific markup needs to be compiled.
 > Cell stays away from inventing any framework-specific markup such as HTML templates. There's no template to compile.
