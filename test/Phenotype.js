@@ -533,7 +533,7 @@ describe("Phenotype", function() {
         compare($node.getAttribute("data-done"), "true") // only set to the DOM attribute (as string)
         compare($node["data-done"], undefined)  // the property should be undefined
       })
-      it("function", function() {
+      it("function (only native HTMLElement methods are supported)", function() {
         const $parent = document.createElement("div");
         const $node = document.createElement("div")
         $node.Genotype = {}
@@ -541,16 +541,27 @@ describe("Phenotype", function() {
         $parent.appendChild($node)
 
         // Before
-        compare($node.getAttribute("fun"), null)
-        compare($node.fun, undefined)
+        compare($node.getAttribute("onclick"), null)
 
-        Phenotype.set($node, "fun", function(arg) {
+        spy.O.getOwnPropertyDescriptor.reset();
+
+        Phenotype.set($node, "onclick", function(arg) {
           return "fun " + arg;
         })
 
         // After
+        compare($node.getAttribute("onclick"), null) // Doesn't exist as a DOM attribute
+        compare(spy.O.getOwnPropertyDescriptor.callCount, 1); // tries once for HTMLElement and finds onclick so only one time trial.
+
+
+        // NON HTMLElement method set
+        spy.O.getOwnPropertyDescriptor.reset();
+        Phenotype.set($node, "fun", function(arg) {
+          return "fun " + arg;
+        })
         compare($node.getAttribute("fun"), null) // Doesn't exist as a DOM attribute
-        compare($node.fun("sad"), "fun sad")  // Attached as a variable
+        compare(spy.O.getOwnPropertyDescriptor.callCount, 2); // tries both for HTMLElement and Element, because `fun` doesn't exist.
+
       })
     })
   })
