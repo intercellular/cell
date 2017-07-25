@@ -398,10 +398,7 @@
             }
           },
         });
-      } catch (e) {
-        console.log(e);
-        debugger;
-      }
+      } catch (e) { }
     },
     build: function($node) {
       // 1. The special attributes "$type", "$text", "$html", "$components" are tracked by default even if not manually defined
