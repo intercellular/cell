@@ -398,7 +398,7 @@
             }
           },
         });
-      } catch (e) { }
+      } catch (e) { /** native element edge case handling for electron **/ }
     },
     build: function($node) {
       // 1. The special attributes "$type", "$text", "$html", "$components" are tracked by default even if not manually defined
