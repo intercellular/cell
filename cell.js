@@ -328,75 +328,80 @@
     tick: $root.requestAnimationFrame || $root.webkitRequestAnimationFrame || $root.mozRequestAnimationFrame || $root.msRequestAnimationFrame || function(cb) { return $root.setTimeout(cb, 1000/60); },
     set: function($node, key) {
       // Object.defineProperty is used for overriding the default getter and setter behaviors.
-      Object.defineProperty($node, key, {
-        configurable: true,
-        get: function() {
-          // 1. get() overrides the node's getter to create an illusion that users are directly accessing the attribute on the node (In reality they are accessing the genotype via nucleus)
-          // 2. get() also queues up the accessed variable so it can potentially trigger a phenotype update in case there's been a mutation
-          if (key[0] === '$' || key[0] === '_') {
-            if (key in $node.Genotype) {
-              Nucleus.queue($node, key, 'r');
-              return $node.Genotype[key];
-            } else if (key[0] === '_') {
-              // Context Inheritance: If a _variable cannot be found on the current node, propagate upwards until we find a node with the attribute.
-              var $current = $node;
+      try {
+        Object.defineProperty($node, key, {
+          configurable: true,
+          get: function() {
+            // 1. get() overrides the node's getter to create an illusion that users are directly accessing the attribute on the node (In reality they are accessing the genotype via nucleus)
+            // 2. get() also queues up the accessed variable so it can potentially trigger a phenotype update in case there's been a mutation
+            if (key[0] === '$' || key[0] === '_') {
+              if (key in $node.Genotype) {
+                Nucleus.queue($node, key, 'r');
+                return $node.Genotype[key];
+              } else if (key[0] === '_') {
+                // Context Inheritance: If a _variable cannot be found on the current node, propagate upwards until we find a node with the attribute.
+                var $current = $node;
+                while ($current = $current.parentNode) { // eslint-disable-line no-cond-assign
+                  if ($current && $current.Genotype && (key in $current.Genotype)) {
+                    Nucleus.queue($current, key, 'r');
+                    return $current.Genotype[key];
+                  }
+                }
+              } else {
+                return null;
+              }
+            } else {
+              // DOM Attributes.
+              if (key === 'value') {
+                // The "value" attribute needs a special treatment.
+                return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).get.call($node);
+              } else if (key === 'style') {
+                return Phenotype.get(key).get.call($node);
+              } else if (key in $node.Genotype) {
+                // Otherwise utilize Genotype
+                return $node.Genotype[key];
+              } else {
+                // If the key doesn't exist on the Genotype, it means we're dealing with native DOM attributes we didn't explicitly define on the gene.
+                // For example, there are many DOM attributes such as "tagName" that come with the node by default.
+                // These are not something we directly define on a gene object, but we still need to be able to access them..
+                // In this case we just use the native HTMLElement.prototype accessor
+                return Phenotype.get(key).get.call($node);
+              }
+            }
+          },
+          set: function(val) {
+            // set() overrides the node's setter to create an illusion that users are directly setting an attribute on the node (In reality it's proxied to set the genotype value instead)
+            // set() also queues up the mutated variable so it can trigger a phenotype update once the current call stack becomes empty
+
+            // 0. Context Inheritance: If a _variable cannot be found on the current node, cell propagates upwards until it finds a node with the attribute.
+            var $current = $node;
+            if (!(key in $node.Genotype) && key[0] === '_') {
               while ($current = $current.parentNode) { // eslint-disable-line no-cond-assign
                 if ($current && $current.Genotype && (key in $current.Genotype)) {
-                  Nucleus.queue($current, key, 'r');
-                  return $current.Genotype[key];
+                  break;
                 }
               }
-            } else {
-              return null;
             }
-          } else {
-            // DOM Attributes.
-            if (key === 'value') {
-              // The "value" attribute needs a special treatment.
-              return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).get.call($node);
-            } else if (key === 'style') {
-              return Phenotype.get(key).get.call($node);
-            } else if (key in $node.Genotype) {
-              // Otherwise utilize Genotype
-              return $node.Genotype[key];
-            } else {
-              // If the key doesn't exist on the Genotype, it means we're dealing with native DOM attributes we didn't explicitly define on the gene.
-              // For example, there are many DOM attributes such as "tagName" that come with the node by default.
-              // These are not something we directly define on a gene object, but we still need to be able to access them..
-              // In this case we just use the native HTMLElement.prototype accessor
-              return Phenotype.get(key).get.call($node);
-            }
-          }
-        },
-        set: function(val) {
-          // set() overrides the node's setter to create an illusion that users are directly setting an attribute on the node (In reality it's proxied to set the genotype value instead)
-          // set() also queues up the mutated variable so it can trigger a phenotype update once the current call stack becomes empty
-
-          // 0. Context Inheritance: If a _variable cannot be found on the current node, cell propagates upwards until it finds a node with the attribute.
-          var $current = $node;
-          if (!(key in $node.Genotype) && key[0] === '_') {
-            while ($current = $current.parentNode) { // eslint-disable-line no-cond-assign
-              if ($current && $current.Genotype && (key in $current.Genotype)) {
-                break;
+            // 1. Set genotype by default
+            Genotype.update($current, key, val);
+            // 2. DOM attribute handling (anything that doesn't start with $ or _)
+            if (key[0] !== '$' && key[0] !== '_') {
+              if (key === 'value') {
+                return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).set.call($node, val);
+              } else if (key === 'style' && typeof val === 'object') {
+                Phenotype.get(key).set.call($node, val);
+              } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
+                $node.setAttribute(key, val);
+              } else if (typeof val === 'function') {
+                Phenotype.get(key).set.call($node, val);
               }
             }
-          }
-          // 1. Set genotype by default
-          Genotype.update($current, key, val);
-          // 2. DOM attribute handling (anything that doesn't start with $ or _)
-          if (key[0] !== '$' && key[0] !== '_') {
-            if (key === 'value') {
-              return Object.getOwnPropertyDescriptor(Object.getPrototypeOf($node), key).set.call($node, val);
-            } else if (key === 'style' && typeof val === 'object') {
-              Phenotype.get(key).set.call($node, val);
-            } else if (typeof val === 'number' || typeof val === 'string' || typeof val === 'boolean') {
-              $node.setAttribute(key, val);
-            } else if (typeof val === 'function') {
-              Phenotype.get(key).set.call($node, val);
-            }
-          }
-        },
-      });
+          },
+        });
+      } catch (e) {
+        console.log(e);
+        debugger;
+      }
     },
     build: function($node) {
       // 1. The special attributes "$type", "$text", "$html", "$components" are tracked by default even if not manually defined
