@@ -191,12 +191,12 @@
      *   - $update(): executes the "$update" callback function when needed (called by Nucleus on every tick)
      */
     build: function($node, genotype) {
+      Phenotype.$init($node);
       for (var key in genotype) {
         if (genotype[key] !== null && genotype[key] !== undefined) {
           Phenotype.set($node, key, genotype[key]);
         }
       }
-      Phenotype.$init($node);
     },
     multiline: function(fn) { return /\/\*!?(?:@preserve)?[ \t]*(?:\r\n|\n)([\s\S]*?)(?:\r\n|\n)[ \t]*\*\//.exec(fn.toString())[1]; },
     get: function(key) {
