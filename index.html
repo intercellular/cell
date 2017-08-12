@@ -150,7 +150,7 @@ var el = {
 <p><strong>When you follow the 3 rules below, Cell turns it into HTML.</strong></p>
 <p><br></p>
 <h2 id="rule-1-attributes-map-1-1-to-dom-attributes-by-default-">Rule #1. Attributes map 1:1 to DOM attributes by default.</h2>
-<p>When you define a javascript object, its attributes map 1:1 to DOM attributes. So,</p>
+<p>When you define a Javascript object, its attributes map 1:1 to DOM attributes. So,</p>
 <pre><code class="lang-js">var node = {
   id: "container",
   class: "red"
@@ -160,7 +160,7 @@ var el = {
 <pre><code class="lang-html">&lt;div id="container" class="red"&gt;&lt;/div&gt;
 </code></pre>
 <p><br></p>
-<h2 id="rule-2-use-7-special-keywords-to-declare-the-cell-structrure">Rule #2. Use 7 special keywords to declare the cell structrure</h2>
+<h2 id="rule-2-use-7-special-keywords-to-declare-the-cell-structure">Rule #2. Use 7 special keywords to declare the cell structure</h2>
 <table>
 <thead>
 <tr>
@@ -250,7 +250,7 @@ var el = {
 <p><br></p>
 <h2 id="2-self-driving-dom">2. Self-driving DOM</h2>
 <p>So far this is just a static DOM tree. To make it dynamic, you need to write a program that "remote controls" these HTML elements.</p>
-<p>Normally javascript frameworks maintain a separate <strong>centralized data structure and application context (<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a> or some variation)</strong> that synchronizes with and controls HTML elements dynamically.</p>
+<p>Normally Javascript frameworks maintain a separate <strong>centralized data structure and application context (<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller">Model-View-Controller</a> or some variation)</strong> that synchronizes with and controls HTML elements dynamically.</p>
 <p><strong>Cell takes a decentralized approach.</strong> It creates a DOM tree where each element is self-aware (It can contain an entire Model-View-Controller environment of its own) and can therefore "drive" itself autonomously (Internally called <code>"Nucleus"</code>).</p>
 <p><br></p>
 <p><img src="https://s3-us-west-2.amazonaws.com/fm.ethan.jason/domtree.jpg" alt="Image"></p>
@@ -286,7 +286,7 @@ var el = {
 <tr>
 <td>Your App</td>
 <td>Full of framework API syntax</td>
-<td>Just a vanillla javascript. No framework code.</td>
+<td>Just a vanilla Javascript. No framework code.</td>
 </tr>
 <tr>
 <td>Job</td>
@@ -311,7 +311,7 @@ var el = {
 </blockquote>
 <h5 id="3-frameworks-introduce-dependencies-">3. Frameworks introduce dependencies.</h5>
 <blockquote>
-<p>Just by choosing to use a framework you have already lost the war against dependency. From then on, you need to use <code>npm install</code> for every frontend javascript library you need to use. Cell frees you from this loop and lets you use frontend Javascript libraries with simple <code>&lt;script src&gt;</code>.</p>
+<p>Just by choosing to use a framework you have already lost the war against dependency. From then on, you need to use <code>npm install</code> for every frontend Javascript library you need to use. Cell frees you from this loop and lets you use frontend Javascript libraries with simple <code>&lt;script src&gt;</code>.</p>
 </blockquote>
 <h5 id="4-framework-specific-markup-needs-to-be-compiled-">4. Framework-specific markup needs to be compiled.</h5>
 <blockquote>
