@@ -1,4 +1,4 @@
-module.exports = {
+module.exports = [{
   js: [
     'https://www.celljs.org/cell.js',
     'https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.1/timeago.min.js',
@@ -35,4 +35,4 @@ module.exports = {
     ga('create', 'UA-54282166-10', 'auto');
     ga('send', 'pageview');
   }
-}
+}]
