@@ -508,10 +508,21 @@
     detect: function($context) {
       // takes a context, returns all the objects containing thew '$cell' key
       if ($context === undefined) $context = this;
+      $context.Element.prototype.$module = {}; // $module setup
       return Object.keys($context).filter(function(k) {
         try {
           if (/webkitStorageInfo|webkitIndexedDB/.test(k) || $context[k] instanceof $root.Element) return false; // Only look for plain javascript object
-          return $context[k] && Object.prototype.hasOwnProperty.call($context[k], '$cell');
+          if ($context[k]) {
+            if (Object.prototype.hasOwnProperty.call($context[k], '$cell')) {
+              if (typeof $context[k].$cell === 'object') {
+                Object.keys($context[k].$cell).forEach(function(k) { $context.Element.prototype.$module[k] = $context[k].$cell[k]; });
+                return false;
+              } else {
+                return true;
+              }
+            }
+          }
+          return false;
         } catch (e) { return false; }
       }).map(function(k) {
         return $context[k];
@@ -523,6 +534,7 @@
       if ($context === undefined) $context = $root;
       else $root = $context;
       $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(gene, inheritance, index, namespace, replace) {
+        if ('$inherit' in gene) { gene = $context.Element.prototype.$module[gene.$inherit].call($context, gene); }
         var $node = Membrane.build(this, gene, index, namespace, replace);
         Genotype.build($node, gene, inheritance || [], index);
         Nucleus.build($node);
