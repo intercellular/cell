@@ -515,7 +515,7 @@
           if ($context[k]) {
             if (Object.prototype.hasOwnProperty.call($context[k], '$cell')) {
               if (typeof $context[k].$cell === 'object') {
-                Object.keys($context[k].$cell).forEach(function(k) { $root.Element.prototype.$module[k] = $context[k].$cell[k]; });
+                Object.keys($context[k].$cell).forEach(function(inherit) { $root.Element.prototype.$module[inherit] = $context[k].$cell[inherit]; });
                 return false;
               } else {
                 return true;
