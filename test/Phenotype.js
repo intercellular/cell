@@ -37,7 +37,8 @@ describe("Phenotype", function() {
         })
         it("text node as svg descendent", function() {
           const node = Phenotype.$type({$type: "text"}, "http://www.w3.org/2000/svg")
-          compare(node instanceof HTMLUnknownElement, true)
+          // Should not be a text node. Should be a svg text node
+          compare(node.nodeType === Node.TEXT_NODE, false)
           compare(node.namespaceURI, "http://www.w3.org/2000/svg");
           compare(node.Meta, {namespace: "http://www.w3.org/2000/svg"})
         })
