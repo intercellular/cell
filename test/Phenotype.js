@@ -35,6 +35,13 @@ describe("Phenotype", function() {
           compare(node.namespaceURI, "dummy namespace")
           compare(node.Meta, {namespace: "dummy namespace"})
         })
+        it("text node as svg descendent", function() {
+          const node = Phenotype.$type({$type: "text"}, "http://www.w3.org/2000/svg")
+          // Should not be a text node. Should be a svg text node
+          compare(node.nodeType === Node.TEXT_NODE, false)
+          compare(node.namespaceURI, "http://www.w3.org/2000/svg");
+          compare(node.Meta, {namespace: "http://www.w3.org/2000/svg"})
+        })
       })
       it("fragment", function() {
         const node = Phenotype.$type({$type: "fragment"})

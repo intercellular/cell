@@ -240,10 +240,7 @@
     $type: function(model, namespace) {
       var meta = {};
       var $node;
-      if (model.$type === 'text') {
-        if (model.$text && typeof model.$text === 'function') model.$text = Phenotype.multiline(model.$text);
-        $node = $root.document.createTextNode(model.$text);
-      } else if (model.$type === 'svg') {
+      if (model.$type === 'svg') {
         $node = $root.document.createElementNS('http://www.w3.org/2000/svg', model.$type);
         meta.namespace = $node.namespaceURI;
       } else if (namespace) {
@@ -251,6 +248,9 @@
         meta.namespace = $node.namespaceURI;
       } else if (model.$type === 'fragment') {
         $node = $root.document.createDocumentFragment();
+      } else if (model.$type === 'text') {
+        if (model.$text && typeof model.$text === 'function') model.$text = Phenotype.multiline(model.$text);
+        $node = $root.document.createTextNode(model.$text);
       } else {
         $node = $root.document.createElement(model.$type || 'div');
       }
