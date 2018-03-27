@@ -137,5 +137,54 @@ describe("Genotype", function() {
         c: "C"
       })
     })
+    describe("$virus", function() {
+      let ul_mutating_virus = function(component){
+        component.id = "infected";
+        component.$components = [{$type: 'li'}];
+        return component;
+      }
+      it("Applies a single virus mutation", function() {
+        let component = { $type: 'ul', $virus: ul_mutating_virus };
+
+        compare(Genotype.infect(component), {
+          $type: 'ul',
+          $components: [{$type: 'li'}],
+          id: 'infected',
+        })
+
+        let $node = root.document.body.$build(component, []);
+        compare($node.outerHTML, '<ul id="infected"><li></li></ul>');
+      })
+      it("Applies multiple virus mutations sequentially", function() {
+        let id_mutating_virus = function(component){
+          component._previous_id = component.id;
+          component.id += "_again";
+          return component;
+        }
+
+        let component = {
+          $type: 'ul',
+          $virus: [ul_mutating_virus, id_mutating_virus]
+        };
+
+        compare(Genotype.infect(component), {
+          $type: 'ul',
+          $components: [{$type: 'li'}],
+          _previous_id: 'infected',
+          id: 'infected_again',
+        })
+
+        let $node = root.document.body.$build(component, []);
+        compare($node.outerHTML, '<ul id="infected_again"><li></li></ul>');
+      })
+      it("Errors when mutation does not comply with the API", function() {
+        let wrong_mutation = function(component){
+          let the_thing = "return nothing";
+        }
+
+        let component = { $type: 'ul', $virus: wrong_mutation };
+        assert.throws(() => Genotype.infect(component), /return an object/)
+      })
+    })
   })
 })
