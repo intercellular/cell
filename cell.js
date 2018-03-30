@@ -116,6 +116,20 @@
         Genotype.set($node, key, gene[key]);
       }
     },
+    infect: function(gene) {
+      var virus = gene.$virus;
+      if (!virus) return gene;
+      var mutations = Array.isArray(virus) ? virus : [virus];
+      delete gene.$virus;
+      return mutations.reduce(function(g, mutate) {
+        var mutated = mutate(g);
+        if (mutated === null || typeof mutated !== 'object') {
+          throw new Error('$virus mutations must return an object');
+        }
+        mutated.$type = mutated.$type || 'div';
+        return mutated;
+      }, gene);
+    },
   };
   var Gene = {
     /*
@@ -522,7 +536,8 @@
       // As a result, all HTML elements become autonomous.
       if ($context === undefined) $context = $root;
       else $root = $context;
-      $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(gene, inheritance, index, namespace, replace) {
+      $context.DocumentFragment.prototype.$build = $context.Element.prototype.$build = function(healthy_gene, inheritance, index, namespace, replace) {
+        var gene = Genotype.infect(healthy_gene);
         var $node = Membrane.build(this, gene, index, namespace, replace);
         Genotype.build($node, gene, inheritance || [], index);
         Nucleus.build($node);

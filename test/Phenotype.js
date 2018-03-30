@@ -420,13 +420,13 @@ describe("Phenotype", function() {
 
           styleAttr = $node.getAttribute("style");
           styleProp = $node.style;
-         
+
           compare(styleAttr, "background-color: red; font-family: Courier;")
           compare(styleProp.backgroundColor, "red");
           compare(styleProp.fontFamily, "Courier");
 
           compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
-          
+
         });
       });
       describe("string", function() {
@@ -448,13 +448,13 @@ describe("Phenotype", function() {
 
           styleAttr = $node.getAttribute("style");
           styleProp = $node.style;
-         
+
           compare(styleAttr, "background-color: red;")
           // even if we initially set the style as string,
           // we should be able to access it as an object property
           compare(styleProp.backgroundColor, "red");
           compare(Object.getPrototypeOf(styleProp).constructor.name, "CSSStyleDeclaration");
-          
+
         });
         it("class", function() {
           const $parent = document.createElement("div");
